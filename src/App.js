@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './App.css';
+
+
+import ClientRoot from "./screens/Layouts/ClientRoot";
+import SecondRoot from "./screens/Layouts/SecondRoot";
+
+import { HomeScreen, EventDetailScreen, LoginScreen, BookingScreen } from './screens/Client';
+import { CreateEventScreen } from './screens/Admin';
+
+
+
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <ClientRoot />,
+    children: [
+      { path: "/", element: <HomeScreen /> },
+    ]
+  },
+  {
+    path: '/',
+    element: <SecondRoot />,
+    children: [
+      { path: "/event", element: <EventDetailScreen /> },
+      { path: "/event/:event_id/booking", element: <BookingScreen /> },
+      { path: "/event/create", element: <CreateEventScreen /> },
+      { path: "/login", element: <LoginScreen /> },
+    ]
+  },
+])
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
