@@ -1,8 +1,16 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Dropdown } from "flowbite-react";
+import { LuFolderOpen, LuHelpCircle, LuLogOut, LuUser } from "react-icons/lu";
 
 const logo_url = process.env.REACT_APP_LOGO_URL;
 
 export default function Header() {
+	const [user, setUser] = useState(() => {
+		let json = localStorage.getItem("user");
+		return json ? JSON.parse(localStorage.getItem("user")) : null;
+	});
+
 	return (
 		<header
 			className="w-full h-[4.5rem] bg-main px-8
@@ -11,8 +19,11 @@ export default function Header() {
             border-b-1 border-slate-500"
 		>
 			<div className="flex items-center h-[100%] ml-10">
-				<Link to="/" className="flex items-center justify-center w-[30%]">
-					<img src={logo_url} className="w-[40%]"/>
+				<Link
+					to="/"
+					className="flex items-center justify-center w-[30%]"
+				>
+					<img src={logo_url} className="w-[40%]" />
 				</Link>
 
 				<div className="flex items-center relative w-[100%]">
@@ -74,9 +85,54 @@ export default function Header() {
 					</Link>
 				</div>
 
-                <div className="flex items-center text-white text-sm">
-                    <Link to="/login" className="px-4">Đăng nhập | Đăng ký</Link>
-                </div>
+				<div className="flex items-center text-white text-sm">
+					{user ? (
+						<span className="px-4 cursor-pointer">
+							<Dropdown
+								label=""
+								renderTrigger={() => (
+									<span>{user.fullname}</span>
+								)}
+							>
+								<Dropdown.Header>
+									<span className="flex flex-row gap-2 text-sm text-center items-center">
+										<LuUser /> {user.email}
+									</span>
+								</Dropdown.Header>
+								<Dropdown.Item>
+									<span className="flex flex-row gap-2 text-sm text-center items-center">
+										<LuFolderOpen /> Quản lý tài khoản
+									</span>
+								</Dropdown.Item>
+								<Dropdown.Item>
+									<span className="flex flex-row gap-2 text-sm text-center items-center">
+										<LuHelpCircle /> Hỗ trợ
+									</span>
+								</Dropdown.Item>
+
+								<Dropdown.Divider />
+								<Dropdown.Item>
+									<span
+										onClick={() => {
+											localStorage.removeItem("user");
+											localStorage.removeItem(
+												"accessToken"
+											);
+											window.location.href = "/";
+										}}
+										className="flex flex-row gap-2 text-sm text-center items-center"
+									>
+										<LuLogOut /> Đăng xuất
+									</span>
+								</Dropdown.Item>
+							</Dropdown>
+						</span>
+					) : (
+						<Link to="/login" className="px-4">
+							Đăng nhập | Đăng ký
+						</Link>
+					)}
+				</div>
 			</div>
 		</header>
 	);

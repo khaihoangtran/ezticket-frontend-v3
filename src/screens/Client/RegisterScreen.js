@@ -1,19 +1,22 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toast } from "flowbite-react";
 import { HiExclamation } from "react-icons/hi";
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
 	const [formData, setFormData] = useState({
 		email: "",
+		fullname: "",
+		phone: "",
+		address: "",
 	});
-	const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
 
-	const handleSubmit = async () => {
+	const handleSubmit = () => {
 		const options = {
 			method: "POST",
-			url: process.env.REACT_APP_API_URL + "/api/user/login",
+			url: process.env.REACT_APP_API_URL + "/api/user/register",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -21,38 +24,33 @@ export default function LoginScreen() {
 			data: formData,
 		};
 
-		const Login = async () => {
+		const registerUser = async () => {
 			await axios
 				.request(options)
 				.then((response) => {
 					const result = response.data;
 
 					if (result.success) {
-                        localStorage.setItem('email', formData.email)
-						window.location.href = "/confirm_otp";
+						window.location.href = "/login";
 					}
-
+                   
 					console.log(result);
 				})
 				.catch((err) => {
-					const msg = err.response.data.msg;
-					setErrorMessage(msg);
+                    const msg = err.response.data.msg;
+                    setErrorMessage(msg);
 					console.log(msg);
 				});
 		};
 
-		Login();
+		registerUser();
 	};
 
 	return (
 		<>
 			<section className="min-h-screen">
 				<div className="relative w-[100%] min-h-screen flex items-center justify-center text-center">
-					<div
-						className={`absolute right-3 top-28 ${
-							errorMessage !== "" ? "block" : "hidden"
-						}`}
-					>
+					<div className={`absolute right-3 top-28 ${errorMessage !== '' ? 'block' : 'hidden'}`}>
 						<Toast>
 							<div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-500 dark:bg-orange-700 dark:text-orange-200">
 								<HiExclamation className="h-5 w-5" />
@@ -63,7 +61,6 @@ export default function LoginScreen() {
 							{/* <Toast.Toggle /> */}
 						</Toast>
 					</div>
-    
 					<form
 						className="py-4 px-8 min-h-[400px] max-w-[340px] 
                       bg-white mt-10 mx-auto
@@ -81,6 +78,45 @@ export default function LoginScreen() {
 								setFormData({
 									...formData,
 									email: e.target.value,
+								});
+							}}
+						/>
+						<input
+							className="border border-transparent bg-slate-100 outline-none text-black
+                            text-sm leading-5 w-[100%] h-[44px] pl-4 mb-3 focus:ring-0 focus:border-none"
+							type="email"
+							name="email"
+							placeholder="Fullname"
+							onChange={(e) => {
+								setFormData({
+									...formData,
+									fullname: e.target.value,
+								});
+							}}
+						/>
+						<input
+							className="border border-transparent bg-slate-100 outline-none text-black
+                            text-sm leading-5 w-[100%] h-[44px] pl-4 mb-3 focus:ring-0 focus:border-none"
+							type="email"
+							name="email"
+							placeholder="Phone"
+							onChange={(e) => {
+								setFormData({
+									...formData,
+									phone: e.target.value,
+								});
+							}}
+						/>
+						<input
+							className="border border-transparent bg-slate-100 outline-none text-black
+                            text-sm leading-5 w-[100%] h-[44px] pl-4 mb-3 focus:ring-0 focus:border-none"
+							type="email"
+							name="email"
+							placeholder="Address"
+							onChange={(e) => {
+								setFormData({
+									...formData,
+									address: e.target.value,
 								});
 							}}
 						/>
@@ -110,7 +146,7 @@ export default function LoginScreen() {
 								className="bg-slate-200 border-transparent w-[100%] h-[40px] 
                                 rounded-full min-w-[270px] text-sm hover:bg-emerald-300"
 								type="button"
-                                onClick={handleSubmit}
+								onClick={handleSubmit}
 							>
 								Tiếp tục
 							</button>
@@ -128,9 +164,9 @@ export default function LoginScreen() {
 								<div className="pointer m-2">
 									<Link
 										className="text-main text-xs"
-										to="/register"
+										to="/login"
 									>
-										Bạn chưa có tài khoản ?
+										Bạn đã có tài khoản ?
 									</Link>
 								</div>
 							</div>

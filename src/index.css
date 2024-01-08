@@ -37,9 +37,9 @@ ul, ol, dd {
   list-style: none;
 }
 
-.active {
+/* .active {
   background-color: var(--main-color) !important;
-}
+} */
 
 
 .text-main {

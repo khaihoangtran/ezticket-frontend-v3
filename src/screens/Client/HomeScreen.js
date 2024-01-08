@@ -93,7 +93,7 @@ export default function HomeScreen() {
 	return (
 		<>
 			<div className="w-[100%] flex-col mt-[4.5rem] min-h-screen flex items-center ">
-				<div className="w-[72%] mt-16">
+				<div className="w-[70%] mt-10">
 					<Carousel list={events} />
 				</div>
 

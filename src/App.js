@@ -4,14 +4,23 @@ import './App.css';
 
 import ClientRoot from "./screens/Layouts/ClientRoot";
 import SecondRoot from "./screens/Layouts/SecondRoot";
+import AdminRoot from "./screens/Layouts/AdminRoot";
 
-import { HomeScreen, EventDetailScreen, LoginScreen, BookingScreen } from './screens/Client';
-import { CreateEventScreen } from './screens/Admin';
+import { HomeScreen, EventDetailScreen, LoginScreen, BookingScreen, RegisterScreen, OTPScreen } from './screens/Client';
+import { AdminScreen, CreateEventScreen } from './screens/Admin';
+
 
 
 
 
 const router = createBrowserRouter([
+  {
+    path: '/business',
+    element: <AdminRoot />,
+    children: [
+      { path: '/business', element: <AdminScreen /> }
+    ]
+  },
   {
     path: '/',
     element: <ClientRoot />,
@@ -27,8 +36,11 @@ const router = createBrowserRouter([
       { path: "/event/:event_id/booking", element: <BookingScreen /> },
       { path: "/event/create", element: <CreateEventScreen /> },
       { path: "/login", element: <LoginScreen /> },
+      { path: "/register", element: <RegisterScreen /> },
+      { path: "/confirm_otp", element: <OTPScreen /> },
     ]
   },
+  
 ])
 
 function App() {
