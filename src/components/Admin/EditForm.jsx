@@ -1,12 +1,16 @@
 import { HiCode, HiCog, HiCheck } from "react-icons/hi";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadBox from "./UploadBox";
+import Editor from "./Editor";
+import axios from "axios";
 
-export default function EditForm({ ckeditor, editors, uploadbox }) {
-	const [editorState, setEditorState] = useState("");
-
+export default function EditForm({
+	ckeditor,
+	inputs,
+	uploadbox,
+	formData,
+	setFormData,
+}) {
 	return (
 		<div className="grid grid-cols-4 gap-10">
 			<div className="col-span-3 bg-gray-50 border border-gray-300 p-5 rounded">
@@ -15,52 +19,34 @@ export default function EditForm({ ckeditor, editors, uploadbox }) {
 						<label className="block mb-2 text-sm font-medium">
 							{ckeditor}
 						</label>
-						<CKEditor
-							editor={ClassicEditor}
-							data={editorState}
-							onReady={(editor) => {
-								// You can store the "editor" and use when it is needed.
-								console.log("Editor is ready to use!", editor);
-							}}
-							onChange={(event, editor) => {
-								const data = editor.getData();
-								setEditorState(data);
-								console.log({ event, editor, data });
-							}}
-							onBlur={(event, editor) => {
-								console.log("Blur.", editor);
-							}}
-							onFocus={(event, editor) => {
-								console.log("Focus.", editor);
-							}}
-						/>
+						{<Editor />}
 					</div>
 				)}
 
 				<div className="grid grid-cols-2 gap-8">
-					{editors.map((editor, index) => {
+					{inputs.map((input, index) => {
 						return (
 							<div key={index} className="col-span-1">
 								<div className="relative pb-0">
 									<label className="block mb-2 text-sm font-medium">
-										{editor.title}
+										{input.title}
 									</label>
 									<div className="relative bg-gray-200 rounded">
 										<input
 											className="w-full h-[2.4rem] px-3 outline-none focus:ring-0 border border-gray-200 text-sm"
-											type="text"
+											type={input.type}
 											onChange={(e) => {
 												let updatedFormData = {
 													...formData,
 												};
-												updatedFormData[editor.tag] =
+												updatedFormData[input.tag] =
 													e.target.value;
 												setFormData(updatedFormData);
 											}}
 										/>
 									</div>
 									<p className="text-xs text-gray-400 pt-2">
-										{editor.about}
+										{input.about}
 									</p>
 								</div>
 							</div>

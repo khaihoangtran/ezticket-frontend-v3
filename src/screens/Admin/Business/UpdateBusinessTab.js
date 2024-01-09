@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { HiCheck, HiCode, HiCog } from "react-icons/hi";
-import EditForm from "../../components/Admin/EditForm";
+import EditForm from "../../../components/Admin/EditForm";
 
 
-const editors = [
+const inputs = [
 	{
 		title: "Tên tổ chức",
 		about: "Tên đăng ký kinh doanh của tổ chức",
@@ -72,7 +72,7 @@ export default function UpdateBusinessScreen() {
 						<button onClick={handleSubmit} className="bg-main w-32 px-4 py-1">Save</button>
 					</div>
 				</div>
-				<EditForm editors={editors} />
+				<EditForm inputs={inputs} />
 			</section>
 		</>
 	);

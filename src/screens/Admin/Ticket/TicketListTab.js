@@ -1,6 +1,6 @@
 import { useState } from "react";
-import EditForm from "../../components/Admin/EditForm";
-import ListTable from "../../components/Admin/ListTable";
+import EditForm from "../../../components/Admin/EditForm";
+import ListTable from "../../../components/Admin/ListTable";
 
 const headcells = [
 	"Tên sự kiện",
@@ -24,7 +24,7 @@ const rows = [
 	],
 ];
 
-const editors = [
+const inputs = [
 	{
 		title: "Tên vé",
 		about: "Tên của loại vé",
@@ -42,7 +42,7 @@ const editors = [
 	}
 ];
 
-export default function TicketListScreen() {
+export default function TicketListTab() {
 	const [isEditing, setIsEditing] = useState(false);
 	return (
 		<>
@@ -77,7 +77,7 @@ export default function TicketListScreen() {
 
 				{isEditing ? (
 					<EditForm
-						editors={editors}
+						inputs={inputs}
 					/>
 				) : (
 					<ListTable

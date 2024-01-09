@@ -1,8 +1,16 @@
 import AdminScreen from "./AdminScreen";
-import CreateEventScreen from "./CreateEventScreen";
-import DashboardScreen from "./DashboardScreen";
-import EventListScreen from "./EventListScreen";
-import TicketListScreen from "./TicketListScreen";
-import UpdateBusinessScreen from "./UpdateBusinessScreen";
 
-export { CreateEventScreen, DashboardScreen, UpdateBusinessScreen, AdminScreen, EventListScreen, TicketListScreen };
+
+import CreateEventTab from "./Event/CreateEventTab";
+import EventListTab from "./Event/EventListTab";
+import UpdateEventTab from "./Event/UpdateEventTab";
+
+import TicketListTab from "./Ticket/TicketListTab";
+
+
+import UpdateBusinessTab from "./Business/UpdateBusinessTab";
+
+import DashboardTab from "./Dashboard/DashboardTab";
+
+
+export { CreateEventTab, DashboardTab, UpdateBusinessTab, AdminScreen, EventListTab, TicketListTab, UpdateEventTab };

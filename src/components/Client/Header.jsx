@@ -100,9 +100,9 @@ export default function Header() {
 									</span>
 								</Dropdown.Header>
 								<Dropdown.Item>
-									<span className="flex flex-row gap-2 text-sm text-center items-center">
-										<LuFolderOpen /> Quản lý tài khoản
-									</span>
+									<Link to="/business" className="flex flex-row gap-2 text-sm text-center items-center">
+										<LuFolderOpen /> Quản lý sự kiện
+									</Link>
 								</Dropdown.Item>
 								<Dropdown.Item>
 									<span className="flex flex-row gap-2 text-sm text-center items-center">

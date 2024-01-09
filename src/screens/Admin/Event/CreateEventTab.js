@@ -3,7 +3,7 @@ import { FileInput } from "flowbite-react";
 import axios from "axios";
 import { useState } from "react";
 
-export default function CreateEventScreen() {
+export default function CreateEventTab() {
 	const [file, setFile] = useState(null);
 
 	const handleFileChange = (e) => {

@@ -12,26 +12,26 @@ import {
 	MdSettings,
 } from "react-icons/md";
 import Editor from "../../components/Admin/Editor";
-import { CreateEventScreen, DashboardScreen, EventListScreen, TicketListScreen, UpdateBusinessScreen } from "../Admin";
+import { CreateEventTab, DashboardTab, EventListTab, TicketListTab, UpdateBusinessTab } from "../Admin";
 
 const menu = {
 	"Trang chủ": [
 		{
 			tab: "Trang chủ",
 			icon: MdDashboard,
-			content: <DashboardScreen />,
+			content: <DashboardTab />,
 		},
 		{
 			tab: "Chỉnh sửa",
 			icon: MdSettings,
-			content: <CreateEventScreen />,
+			content: <CreateEventTab />,
 		},
 	],
 	"Tổ chức": [
 		{
 			tab: "Cập nhật",
 			icon: MdSettings,
-			content: <UpdateBusinessScreen />,
+			content: <UpdateBusinessTab />,
 		},
 		{
 			tab: "Điều khoản",
@@ -43,7 +43,7 @@ const menu = {
 		{
 			tab: "Danh sách sự kiện",
 			icon: MdList,
-			content: <EventListScreen />,
+			content: <EventListTab />,
 		},
 		{
 			tab: "Tạo mới",
@@ -60,7 +60,7 @@ const menu = {
 		{
 			tab: "Danh sách vé",
 			icon: MdList,
-			content: <TicketListScreen />,
+			content: <TicketListTab />,
 		},
 		{
 			tab: "Tạo mới",
