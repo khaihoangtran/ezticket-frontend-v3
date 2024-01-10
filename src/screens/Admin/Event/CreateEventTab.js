@@ -13,12 +13,12 @@ export default function CreateEventTab() {
 	const handleSubmit = () => {
 		const formData = new FormData();
 		formData.append("file", file);
-		formData.append("name", "Event test 2");
+		formData.append("name", "Event test 1");
 		formData.append("categories", [
-			"6596af9276222539fdf1d4f8",
-			"6596afbf76222539fdf1d4fa",
+			"659d4a56a0cd9595ac66d52b",
+			"659d4a6ca0cd9595ac66d52d",
 		]);
-		formData.append("author", "65954af7cd32fb0977100004");
+		formData.append("author", "659be95ca93052dba7eeb896");
 		formData.append("occur_date", Date.now());
 		formData.append("time", "17:15 - 19:15");
 		formData.append("location", "Lululola Coffee");
@@ -28,8 +28,8 @@ export default function CreateEventTab() {
 		);
 
 		const options = {
-			method: "PUT",
-			url: "http://localhost:5000/api/event/update/6596f37a3c2636a585e6908c",
+			method: "POST",
+			url: "http://localhost:5000/api/event/create",
 			params: {},
 			headers: {
 				"Content-Type": "multipart/form-data",

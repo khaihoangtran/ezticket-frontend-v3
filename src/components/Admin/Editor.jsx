@@ -3,9 +3,14 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
-export default function Editor({  }) {
-	const [editorState, setEditorState] = useState('');
-
+export default function Editor({ formData, setFormData, tag }) {
+    const [editorData, setEditorData] = useState('');
+    
+    useEffect(() => {
+        let updatedFormData =  { ...formData };
+        updatedFormData[tag] = editorData;
+        setFormData(updatedFormData);
+    }, [editorData])
 
 	return (
 		<CKEditor
@@ -14,7 +19,7 @@ export default function Editor({  }) {
 				extraPlugins: [ MyCustomUploadAdapterPlugin ],
                 removePlugins: ['SpellChecker'],
 			}}
-			data={editorState}
+			data={formData[tag]}
 			onReady={(editor) => {
                 editor.editing.view.change(writer => {
                     writer.setAttribute('spellcheck', 'false', editor.editing.view.document.getRoot());
@@ -24,7 +29,8 @@ export default function Editor({  }) {
 			}}
 			onChange={(event, editor) => {
 				const data = editor.getData();
-				setEditorState(data);
+				setEditorData(data);
+                
 				console.log({ event, editor, data });
 			}}
 			onBlur={(event, editor) => {
