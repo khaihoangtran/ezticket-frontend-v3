@@ -1,27 +1,31 @@
 import { useEffect, useState } from 'react';
 import EditForm from '../../../components/Admin/EditForm';
 import axios from 'axios';
+import { Spinner } from 'flowbite-react';
 
 export default function UpdateEventTab({ event_id, setIsEditing }) {
+	const [isSubmiting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({});
     const [event, setEvent] = useState(null);
-    
+    const [categories, setCategories] = useState([]);
+
     useEffect(() => {
         if (event) {
             setFormData({
                 name: event.name,
-                categories: event.categories,
+                categories: event.categories[0]._id,
                 occur_date: event.occur_date,
                 time: event.time,
                 location: event.location,
                 address: event.address,
                 introduce: event.introduce,
                 banner: event.banner,
-                status: event.status
+                status: event.status,
             });
+
+			console.log(formData)
         }
 
-        // console.log(event)
     }, [event]);
 
     useEffect(() => {
@@ -47,11 +51,69 @@ export default function UpdateEventTab({ event_id, setIsEditing }) {
                 });
         };
 
+        const fetchDataCategories = async () => {
+            await axios
+                .get(`${process.env.REACT_APP_API_URL}/api/category/all`)
+                .then((response) => {
+                    const result = response.data;
+
+                    if (result.success) {
+                        setCategories(result.categories);
+                    }
+
+                    console.log(result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+
         fetchDataEvent();
+        fetchDataCategories();
     }, []);
 
     const handleSubmit = () => {
-        console.log(formData);
+		setIsSubmitting(true);
+        var formDataToSend = new FormData();
+        for (let key in formData) {
+            if (formData.hasOwnProperty(key)) {
+                formDataToSend.append(key, formData[key]);
+            }
+        }
+
+		console.log(formData)
+
+        const UpdateEvent = async () => {
+            const options = {
+                method: 'PUT',
+                url: `${process.env.REACT_APP_API_URL}/api/event/update/${event_id}`,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                params: {},
+                data: formDataToSend,
+            };
+
+            await axios
+                .request(options)
+                .then((response) => {
+                    const result = response.data;
+
+                    if (result.success) {
+						setTimeout(() => {
+							window.location.href = '/business'
+						}, 2000)
+                    }
+
+                    console.log(result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+
+		UpdateEvent();
+
     };
 
     return (
@@ -76,22 +138,22 @@ export default function UpdateEventTab({ event_id, setIsEditing }) {
                         </button>
                         <button
                             onClick={() => {
-                                setIsEditing(false);
                                 handleSubmit();
                             }}
                             className="text-sm bg-main min-w-32 px-4 py-1"
                         >
-                            Lưu
+                            {isSubmiting ? <Spinner color="success" aria-label="Success spinner example" /> : 'Lưu'}
                         </button>
                     </div>
                 </div>
                 {formData && (
                     <EditForm
-                        ckeditor={['Giới thiệu về sự kiện','introduce']}
+                        ckeditor={['Giới thiệu về sự kiện', 'introduce']}
                         uploadbox={['Banner sự kiện', 'banner']}
                         formData={formData}
                         setFormData={setFormData}
                         inputs={inputs}
+                        categories={categories}
                     />
                 )}
             </section>

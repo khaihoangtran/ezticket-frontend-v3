@@ -39,6 +39,8 @@ export default function EventListTab() {
 		};
 
 		fetchDataEvent();
+
+		console.log(events)
 	}, []);
 
 	const handleSubmit = () => {

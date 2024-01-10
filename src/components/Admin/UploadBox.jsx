@@ -1,6 +1,26 @@
 import { FileInput, Label } from "flowbite-react";
+import { useState } from "react";
 
-export default function UploadBox() {
+export default function UploadBox({ formData, setFormData }) {
+	const [uploadedFile, setUploadedFile] = useState('');
+
+	const handleFileChange = (event) => {
+        // Get the file from the input
+        const file = event.target.files[0];
+
+        if (!file) {
+            return; // No file selected
+        }
+
+        // Optional: Validate file size or type here
+
+        // Create a new FormData object and append the file
+        const updatedFormData = {...formData }
+        updatedFormData['file'] = file;
+		setFormData(updatedFormData)
+		setUploadedFile(file.name);
+    };
+
 	return (
 		<div className="flex w-full items-center justify-center">
 			<Label
@@ -24,14 +44,14 @@ export default function UploadBox() {
 						/>
 					</svg>
 					<p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-						<span className="font-semibold">Click to upload</span>{" "}
-						or drag and drop
+						<span className="font-semibold">{uploadedFile ? uploadedFile : 'Click to upload or drag and drop'}</span>
+						
 					</p>
 					<p className="text-xs text-gray-500 dark:text-gray-400">
-						SVG, PNG, JPG or GIF (MAX. 800x400px)
+						SVG, PNG, JPG or GIF (MAX. 1200x400px)
 					</p>
 				</div>
-				<FileInput id="dropzone-file" className="hidden" />
+				<FileInput onChange={handleFileChange} id="dropzone-file" className="hidden" />
 			</Label>
 		</div>
 	);

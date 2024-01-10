@@ -4,7 +4,8 @@ import UploadBox from './UploadBox';
 import Editor from './Editor';
 import axios from 'axios';
 
-export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFormData }) {
+
+export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFormData, categories }) {
 	
 	const updateFormData = (e, tag) => {
 		let updatedFormData = {
@@ -17,11 +18,16 @@ export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFor
     return (
         <div className="grid grid-cols-4 gap-10">
             <div className="col-span-3 bg-gray-50 border border-gray-300 p-5 rounded">
+                
+
                 {ckeditor && formData && (
-                    <div className="mb-5">
-                        <label className="block mb-2 text-sm font-medium">{ckeditor[0]}</label>
-                        <Editor formData={formData} setFormData={setFormData} tag={ckeditor[1]}  />
-                    </div>
+                    <>
+                        <img className='w-full mb-4' src={formData.banner} />
+                        <div className="mb-5">
+                            <label className="block mb-2 text-sm font-medium">{ckeditor[0]}</label>
+                            <Editor formData={formData} setFormData={setFormData} tag={ckeditor[1]}  />
+                        </div>
+                    </>
                 )}
 
                 <div className="grid grid-cols-2 gap-8">
@@ -33,13 +39,15 @@ export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFor
                                     <div className="relative bg-gray-200 rounded">
                                         {input.type === 'select' ? (
                                             <select
+                                                value={formData.categories}
                                                 onChange={(e) => {
                                                     updateFormData(e, input.tag);
                                                 }}
                                                 className="w-full text-sm outline-none focus:ring-0 border border-gray-200"
                                             >
-                                                <option value="concert-nhac">Concert nhạc</option>
-                                                <option value="sau-khau-dien-anh">Sân khấu điện ảnh</option>
+                                                {categories.map((category, idx) => {
+                                                    return <option key={idx} value={category._id}>{category.name}</option>
+                                                })}
                                             </select>
                                         ) : (
                                             <input
@@ -61,8 +69,8 @@ export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFor
 
                 {uploadbox && (
                     <div className="mt-8">
-                        <label className="block mb-2 text-sm font-medium">{uploadbox}</label>
-                        <UploadBox />
+                        <label className="block mb-2 text-sm font-medium">{uploadbox[0]}</label>
+                        <UploadBox formData={formData} setFormData={setFormData} />
                     </div>
                 )}
             </div>

@@ -39,6 +39,7 @@ export default function ListTable({ setIsEditing, headcells, events, setSelected
 								<Table.Cell className="text-xs" >{event.name}</Table.Cell>
 								<Table.Cell className="text-xs" >{new Date(event.occur_date).toLocaleDateString('vi-vn')} <br /> {event.time}</Table.Cell>
 								<Table.Cell className="text-xs" >{event.location} <br/> {event.address}</Table.Cell>
+								<Table.Cell className={`text-xs ${event.status === 'published' && 'text-main'}`} >{event.status}</Table.Cell>
 
 								<Table.Cell>
 									<a
