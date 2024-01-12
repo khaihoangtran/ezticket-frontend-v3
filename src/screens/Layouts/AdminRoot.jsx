@@ -14,69 +14,70 @@ import {
 import Editor from "../../components/Admin/Editor";
 import { CreateEventTab, DashboardTab, EventListTab, TicketListTab, UpdateBusinessTab } from "../Admin";
 
-const menu = {
-	"Trang chủ": [
-		{
-			tab: "Trang chủ",
-			icon: MdDashboard,
-			content: <DashboardTab />,
-		},
-		{
-			tab: "Chỉnh sửa",
-			icon: MdSettings,
-			content: <CreateEventTab />,
-		},
-	],
-	"Tổ chức": [
-		{
-			tab: "Cập nhật",
-			icon: MdSettings,
-			content: <UpdateBusinessTab />,
-		},
-		{
-			tab: "Điều khoản",
-			icon: MdRule,
-			content: "",
-		},
-	],
-	"Sự kiện": [
-		{
-			tab: "Danh sách sự kiện",
-			icon: MdList,
-			content: <EventListTab />,
-		},
-		{
-			tab: "Tạo mới",
-			icon: MdAddBox,
-			content: "",
-		},
-		{
-			tab: "Hướng dẫn",
-			icon: MdOutlineCrop,
-			content: "",
-		},
-	],
-	Vé: [
-		{
-			tab: "Danh sách vé",
-			icon: MdList,
-			content: <TicketListTab />,
-		},
-		{
-			tab: "Tạo mới",
-			icon: MdAddBox,
-			content: "",
-		},
-		{
-			tab: "Hướng dẫn",
-			icon: MdOutlineCrop,
-			content: "",
-		},
-	],
-};
+
 
 export default function AdminRoot() {
 	const [page, setPage] = useState("Sự kiện");
+	const menu = {
+		"Trang chủ": [
+			{
+				tab: "Trang chủ",
+				icon: MdDashboard,
+				content: <DashboardTab />,
+			},
+			{
+				tab: "Chỉnh sửa",
+				icon: MdSettings,
+				content: <CreateEventTab />,
+			},
+		],
+		"Tổ chức": [
+			{
+				tab: "Cập nhật",
+				icon: MdSettings,
+				content: <UpdateBusinessTab />,
+			},
+			{
+				tab: "Điều khoản",
+				icon: MdRule,
+				content: "",
+			},
+		],
+		"Sự kiện": [
+			{
+				tab: "Danh sách sự kiện",
+				icon: MdList,
+				content: <EventListTab setPage={setPage} />,
+			},
+			{
+				tab: "Tạo mới",
+				icon: MdAddBox,
+				content: "",
+			},
+			{
+				tab: "Hướng dẫn",
+				icon: MdOutlineCrop,
+				content: "",
+			},
+		],
+		"Vé": [
+			{
+				tab: "Danh sách vé",
+				icon: MdList,
+				content: <TicketListTab setPage={setPage} />,
+			},
+			{
+				tab: "Tạo mới",
+				icon: MdAddBox,
+				content: "",
+			},
+			{
+				tab: "Hướng dẫn",
+				icon: MdOutlineCrop,
+				content: "",
+			},
+		],
+	};
 
 	return (
 		<>

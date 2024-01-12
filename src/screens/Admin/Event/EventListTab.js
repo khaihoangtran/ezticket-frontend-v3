@@ -4,7 +4,7 @@ import ListTable from "../../../components/Admin/ListTable";
 import axios from "axios";
 import UpdateEventTab from "./UpdateEventTab";
 
-export default function EventListTab() {
+export default function EventListTab({ setPage }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [formData, setFormData] = useState({});
 
@@ -40,12 +40,7 @@ export default function EventListTab() {
 
 		fetchDataEvent();
 
-		console.log(events)
 	}, []);
-
-	const handleSubmit = () => {
-		console.log(formData);
-	};
 
 	return (
 		<>
@@ -71,6 +66,7 @@ export default function EventListTab() {
 						events={events}
 						setIsEditing={setIsEditing}
 						setSelectedEvent={setSelectedEvent}
+						setPage={setPage}
 					/>
 				</section>
 			)}

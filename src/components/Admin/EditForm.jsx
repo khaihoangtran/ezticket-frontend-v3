@@ -1,35 +1,20 @@
 import { HiCode, HiCog, HiCheck } from 'react-icons/hi';
-import { useEffect, useState } from 'react';
 import UploadBox from './UploadBox';
 import Editor from './Editor';
-import axios from 'axios';
-
 
 export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFormData, categories }) {
-	
-	const updateFormData = (e, tag) => {
-		let updatedFormData = {
-			...formData,
-		};
-		updatedFormData[tag] = e.target.value;
-		setFormData(updatedFormData);
-	}
+    const updateFormData = (e, tag) => {
+        let updatedFormData = {
+            ...formData,
+        };
+        updatedFormData[tag] = e.target.value;
+        setFormData(updatedFormData);
+    };
 
     return (
         <div className="grid grid-cols-4 gap-10">
             <div className="col-span-3 bg-gray-50 border border-gray-300 p-5 rounded">
-                
-
-                {ckeditor && formData && (
-                    <>
-                        <img className='w-full mb-4' src={formData.banner} />
-                        <div className="mb-5">
-                            <label className="block mb-2 text-sm font-medium">{ckeditor[0]}</label>
-                            <Editor formData={formData} setFormData={setFormData} tag={ckeditor[1]}  />
-                        </div>
-                    </>
-                )}
-
+                <img className="w-full mb-4" src={formData.banner} />
                 <div className="grid grid-cols-2 gap-8">
                     {inputs.map((input, index) => {
                         return (
@@ -46,7 +31,11 @@ export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFor
                                                 className="w-full text-sm outline-none focus:ring-0 border border-gray-200"
                                             >
                                                 {categories.map((category, idx) => {
-                                                    return <option key={idx} value={category._id}>{category.name}</option>
+                                                    return (
+                                                        <option key={idx} value={category._id}>
+                                                            {category.name}
+                                                        </option>
+                                                    );
                                                 })}
                                             </select>
                                         ) : (
@@ -68,10 +57,19 @@ export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFor
                 </div>
 
                 {uploadbox && (
-                    <div className="mt-8">
+                    <div className="my-8">
                         <label className="block mb-2 text-sm font-medium">{uploadbox[0]}</label>
                         <UploadBox formData={formData} setFormData={setFormData} />
                     </div>
+                )}
+
+                {ckeditor && formData && (
+                    <>
+                        <div className="mb-5">
+                            <label className="block mb-2 text-sm font-medium">{ckeditor[0]}</label>
+                            <Editor formData={formData} setFormData={setFormData} tag={ckeditor[1]} />
+                        </div>
+                    </>
                 )}
             </div>
 

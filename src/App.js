@@ -10,9 +10,6 @@ import { HomeScreen, EventDetailScreen, LoginScreen, BookingScreen, RegisterScre
 import { AdminScreen } from './screens/Admin';
 
 
-
-
-
 const router = createBrowserRouter([
   {
     path: '/business',

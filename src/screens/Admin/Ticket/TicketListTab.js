@@ -1,92 +1,89 @@
-import { useState } from "react";
-import EditForm from "../../../components/Admin/EditForm";
-import ListTable from "../../../components/Admin/ListTable";
+import { useEffect, useState } from 'react';
+import EditForm from '../../../components/Admin/EditForm';
+import ListTable from '../../../components/Admin/ListTable';
+import Collapsible from '../../../components/Admin/Collapsible';
+import axios from 'axios';
 
-const headcells = [
-	"Tên sự kiện",
-	"Tên vé",
-	"Giá vé",
-	"Số lượng",
-];
+export default function TicketListTab({ setPage }) {
+    const [formData, setFormData] = useState({});
 
-const rows = [
-	[
-		"Lululola Đêm nhạc cùng Quốc Thiên",
-		"Vé cơ bản",
-		"300.000đ",
-		"95",
-	],
-	[
-		"Lululola Đêm nhạc cùng Quốc Thiên",
-		"Vé nâng cao",
-		"400.000đ",
-		"20",
-	],
-];
+    const [tickets, setTickets] = useState([]);
+	const [event, setEvent] = useState({});
+
+    useEffect(() => {
+		const selectedEvent = localStorage.getItem('selectedEvent');
+        const options = {
+            method: 'GET',
+            url: `${process.env.REACT_APP_API_URL}/api/ticket/group_by_event/${selectedEvent}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            params: {},
+        };
+
+        const fetchDataEvent = async () => {
+            await axios
+                .request(options)
+                .then((response) => {
+                    const result = response.data;
+
+                    if (result.success) {
+                        setTickets(result.tickets);
+						setEvent(result.event);
+                    }
+
+                    console.log(result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+
+        fetchDataEvent();
+    }, []);
+
+    return (
+        <>
+            <section className="px-6 py-4 mt-[-10px]">
+                <div className="flex items-center justify-between mb-10">
+                    <div className="grow">
+                        <div className="relative pt-2">
+                            <h1 className="text-2xl whitespace-nowrap">Danh sách loại vé</h1>
+                        </div>
+                        <p className="whitespace-nowrap overflow-hidden text-xs text-gray-400 ">API ID: 315F4</p>
+                    </div>
+                </div>
+
+                <div className="w-full mt-4 bg-gray-50 rounded border border-gray-200">
+                    {/* <Collapsible /> */}
+                    <ListTable
+                        tickets={tickets}
+						event={event}
+                        headcells={headcells}
+						setPage={setPage}
+                    />
+                </div>
+            </section>
+        </>
+    );
+}
+
+const headcells = ['Banner', 'Tên sự kiện', 'Tên vé', 'Giá vé', 'Đã bán', 'Còn lại'];
 
 const inputs = [
-	{
-		title: "Tên vé",
-		about: "Tên của loại vé",
-		tag: "name",
-	},
-	{
-		title: "Giá vé",
-		about: "Giá vé bán ra",
-		tag: "price",
-	},
-	{
-		title: "Số lượng",
-		about: "Số lượng vé còn lại",
-		tag: "quantity",
-	}
+    {
+        title: 'Tên vé',
+        about: 'Tên của loại vé',
+        tag: 'name',
+    },
+    {
+        title: 'Giá vé',
+        about: 'Giá vé bán ra',
+        tag: 'price',
+    },
+    {
+        title: 'Số lượng',
+        about: 'Số lượng vé còn lại',
+        tag: 'quantity',
+    },
 ];
-
-export default function TicketListTab() {
-	const [isEditing, setIsEditing] = useState(false);
-	return (
-		<>
-			<section className="px-6 py-4 mt-[-10px]">
-				<div className="flex items-center justify-between mb-10">
-					<div className="grow">
-						<div className="relative pt-2">
-							<h1 className="text-2xl whitespace-nowrap">
-								Danh sách loại vé
-							</h1>
-						</div>
-						<p className="whitespace-nowrap overflow-hidden text-xs text-gray-400 ">
-							API ID: 315F4
-						</p>
-					</div>
-
-					{isEditing && (
-						<div className="pt-4 flex flex-row gap-3">
-							<button onClick={() => {
-								setIsEditing(false);
-							}} className="bg-gray-200 text-sm min-w-32 px-4 py-1">
-								Trở lại
-							</button>
-							<button onClick={() => {
-								setIsEditing(false)
-							}} className="text-sm bg-main min-w-32 px-4 py-1">
-								Lưu
-							</button>
-						</div>
-					)}
-				</div>
-
-				{isEditing ? (
-					<EditForm
-						inputs={inputs}
-					/>
-				) : (
-					<ListTable
-						setIsEditing={setIsEditing}
-						headcells={headcells}
-						rows={rows}
-					/>
-				)}
-			</section>
-		</>
-	);
-}

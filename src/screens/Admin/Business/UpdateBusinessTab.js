@@ -72,7 +72,7 @@ export default function UpdateBusinessScreen() {
 						<button onClick={handleSubmit} className="bg-main w-32 px-4 py-1">Save</button>
 					</div>
 				</div>
-				<EditForm inputs={inputs} />
+				<EditForm formData={formData} setFormData={setFormData} inputs={inputs} />
 			</section>
 		</>
 	);
