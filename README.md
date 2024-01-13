@@ -28,8 +28,8 @@ To run this project, make sure that your environment have all of these framework
    ```
 3. Config your IPV4 Address as your API_URL `.env` ex: (http://192.168.1.1)
 
-   ```js
-   const REACT_APP_API_URL = 'Your IP Address'; 
+   ```sh
+   REACT_APP_API_URL = [Your IP Address] 
    ```
 4. Run the source code
    ```sh
