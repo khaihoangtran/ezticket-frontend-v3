@@ -1,70 +1,160 @@
-import { FileInput } from "flowbite-react";
+import { useEffect, useState } from 'react';
+import EditForm from '../../../components/Admin/EditForm';
+import axios from 'axios';
+import { Spinner } from 'flowbite-react';
 
-import axios from "axios";
-import { useState } from "react";
+export default function CreateEventTab({ event_id, setIsEditing }) {
+	const [isSubmiting, setIsSubmitting] = useState(false);
+    const [formData, setFormData] = useState({});
+    const [categories, setCategories] = useState([]);
 
-export default function CreateEventTab() {
-	const [file, setFile] = useState(null);
+    useEffect(() => {
+        const fetchDataCategories = async () => {
+            await axios
+                .get(`${process.env.REACT_APP_API_URL}/api/category/all`)
+                .then((response) => {
+                    const result = response.data;
 
-	const handleFileChange = (e) => {
-		setFile(e.target.files[0]);
-	};
+                    if (result.success) {
+                        setCategories(result.categories);
+                    }
 
-	const handleSubmit = () => {
-		const formData = new FormData();
-		formData.append("file", file);
-		formData.append("name", "Event test 1");
-		formData.append("categories", [
-			"659d4a56a0cd9595ac66d52b",
-			"659d4a6ca0cd9595ac66d52d",
-		]);
-		formData.append("author", "659be95ca93052dba7eeb896");
-		formData.append("occur_date", Date.now());
-		formData.append("time", "17:15 - 19:15");
-		formData.append("location", "Lululola Coffee");
-		formData.append(
-			"address",
-			"Đường 3/4, Đồi Cà Ri Dê, Phường 3, Thành Phố Đà Lạt, Tỉnh Lâm Đồng"
-		);
+                    console.log(result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
 
-		const options = {
-			method: "POST",
-			url: "http://localhost:5000/api/event/create",
-			params: {},
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-			data: formData,
-		};
+        fetchDataCategories();
+    }, []);
 
-		const createEvent = async () => {
-			await axios
-				.request(options)
-				.then((response) => {
-					console.log(response.data);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		};
+    const handleSubmit = () => {
+		setIsSubmitting(true);
+        var formDataToSend = new FormData();
+        for (let key in formData) {
+            if (formData.hasOwnProperty(key)) {
+                formDataToSend.append(key, formData[key]);
+            }
+        }
 
-		createEvent();
-	};
+		console.log(formData)
 
-	return (
-		<section className="min-h-screen mt-[-10px]">
-			<div className="flex flex-col items-center justify-center h-[80vh]">
-				<div className="create-form w-[25%] items-center justify-center text-center">
-					<FileInput name="file" onChange={handleFileChange} />
+        const UpdateEvent = async () => {
+            const options = {
+                method: 'PUT',
+                url: `${process.env.REACT_APP_API_URL}/api/event/update/${event_id}`,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                params: {},
+                data: formDataToSend,
+            };
 
-					<button
-						onClick={handleSubmit}
-						className="mt-10 py-2 px-20 bg-main rounded"
-					>
-						Submit
-					</button>
-				</div>
-			</div>
-		</section>
-	);
+            await axios
+                .request(options)
+                .then((response) => {
+                    const result = response.data;
+
+                    if (result.success) {
+						setTimeout(() => {
+							window.location.href = '/business'
+						}, 2000)
+                    }
+
+                    console.log(result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+
+		UpdateEvent();
+
+    };
+
+    return (
+        <>
+            <section className="px-6 py-4 mt-[-10px]">
+                <div className="flex items-center justify-between mb-10">
+                    <div className="grow">
+                        <div className="relative pt-2">
+                            <h1 className="text-2xl whitespace-nowrap">Tạo sự kiện</h1>
+                        </div>
+                        <p className="whitespace-nowrap overflow-hidden text-xs text-gray-400 ">API ID: 315F4</p>
+                    </div>
+
+                    <div className="pt-4 flex flex-row gap-3">
+                        <button
+                            onClick={() => {
+                                setIsEditing(false);
+                            }}
+							disabled
+                            className="bg-gray-200 text-sm min-w-32 px-4 py-1 cursor-not-allowed"
+                        >
+                            Trở lại
+                        </button>
+                        <button
+                            onClick={() => {
+                                handleSubmit();
+                            }}
+                            className="text-sm bg-main min-w-32 px-4 py-1"
+                        >
+                            {isSubmiting ? <Spinner color="success" aria-label="Success spinner example" /> : 'Lưu'}
+                        </button>
+                    </div>
+                </div>
+                {formData && (
+                    <EditForm
+                        ckeditor={['Giới thiệu về sự kiện', 'introduce']}
+                        uploadbox={['Banner sự kiện', 'banner']}
+                        formData={formData}
+                        setFormData={setFormData}
+                        inputs={inputs}
+                        categories={categories}
+						editstate={true}
+                    />
+                )}
+            </section>
+        </>
+    );
 }
+
+const inputs = [
+    {
+        title: 'Tên sự kiện',
+        about: 'Tên của sự kiện muốn tổ chức',
+        tag: 'name',
+        type: 'text',
+    },
+    {
+        title: 'Thể loại',
+        about: 'Thể loại mà sự kiện hướng đến',
+        tag: 'categories',
+        type: 'select',
+    },
+    {
+        title: 'Ngày diễn ra',
+        about: 'Ngày mà sự kiện diễn ra',
+        tag: 'occur_date',
+        type: 'date',
+    },
+    {
+        title: 'Thời gian',
+        about: 'Khung thời gian sự kiện diễn ra',
+        tag: 'time',
+        type: 'text',
+    },
+    {
+        title: 'Địa điểm',
+        about: 'Nơi sự kiện diễn ra',
+        tag: 'location',
+        type: 'text',
+    },
+    {
+        title: 'Địa chỉ',
+        about: 'Địa chỉ của nơi diễn ra sự kiện',
+        tag: 'address',
+        type: 'text',
+    },
+];

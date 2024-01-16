@@ -42,6 +42,13 @@ export default function EventListTab({ setPage }) {
 
 	}, []);
 
+	if(events.length === 0) {
+		return <div className="px-6 py-4 mt-[-10px] flex items-center flex-col justify-center h-[90vh]">
+			<h1>Không tìm thấy sự kiện nào</h1>
+			{/* <button className="px-4 py-2 my-5 bg-main">Tạo sự kiện</button> */}
+		</div>
+	}
+
 	return (
 		<>
 			{isEditing ? (

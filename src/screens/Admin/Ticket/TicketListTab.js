@@ -8,10 +8,10 @@ export default function TicketListTab({ setPage }) {
     const [formData, setFormData] = useState({});
 
     const [tickets, setTickets] = useState([]);
-	const [event, setEvent] = useState({});
+    const [event, setEvent] = useState({});
 
     useEffect(() => {
-		const selectedEvent = localStorage.getItem('selectedEvent');
+        const selectedEvent = localStorage.getItem('selectedEvent');
         const options = {
             method: 'GET',
             url: `${process.env.REACT_APP_API_URL}/api/ticket/group_by_event/${selectedEvent}`,
@@ -29,7 +29,7 @@ export default function TicketListTab({ setPage }) {
 
                     if (result.success) {
                         setTickets(result.tickets);
-						setEvent(result.event);
+                        setEvent(result.event);
                     }
 
                     console.log(result);
@@ -54,21 +54,22 @@ export default function TicketListTab({ setPage }) {
                     </div>
                 </div>
 
-                <div className="w-full mt-4 bg-gray-50 rounded border border-gray-200">
-                    {/* <Collapsible /> */}
-                    <ListTable
-                        tickets={tickets}
-						event={event}
-                        headcells={headcells}
-						setPage={setPage}
-                    />
+                <div className="w-full mt-4 bg-gray-50 rounded border border-gray-200 grid grid-cols-3">
+                    <div className="relative w-full flex text-center justify-center col-span-1 cursor-pointer">
+                        <img onClick={() => {
+                            setPage('Sự kiện')
+                        }} className="w-[100%]" src={event.banner} />
+                    </div>
+                    <div className='col-span-2'>
+                     <ListTable tickets={tickets} event={event} headcells={headcells} setPage={setPage} />
+                    </div>
                 </div>
             </section>
         </>
     );
 }
 
-const headcells = ['Banner', 'Tên sự kiện', 'Tên vé', 'Giá vé', 'Đã bán', 'Còn lại'];
+const headcells = ['Tên vé', 'Giá vé', 'Đã bán', 'Còn lại'];
 
 const inputs = [
     {

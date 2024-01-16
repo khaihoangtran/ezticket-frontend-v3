@@ -154,6 +154,7 @@ export default function UpdateEventTab({ event_id, setIsEditing }) {
                         setFormData={setFormData}
                         inputs={inputs}
                         categories={categories}
+                        editstate={true}
                     />
                 )}
             </section>

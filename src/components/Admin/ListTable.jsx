@@ -79,17 +79,6 @@ export default function ListTable({ setIsEditing, headcells, events, tickets, ev
 									<Checkbox />
 								</Table.Cell>
 
-								<Table.Cell className="text-sm">
-									<img
-										onClick={() => {
-											setPage("Sự kiện")
-										}}
-										className="cursor-pointer max-w-48"
-										src={event.banner}
-									/>
-								</Table.Cell>
-
-								<Table.Cell className="text-sm" >{event.name}</Table.Cell>
 								<Table.Cell className="text-sm" >{ticket._id}</Table.Cell>
 								<Table.Cell className="text-sm" >{ticket.statuses[0].price.toLocaleString('vi-vn')}đ</Table.Cell>
 								<Table.Cell className="text-sm" >{ticket.statuses[0] ? ticket.statuses[0].count : 0}</Table.Cell>

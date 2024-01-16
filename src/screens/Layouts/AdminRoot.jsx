@@ -52,7 +52,7 @@ export default function AdminRoot() {
 			{
 				tab: "Tạo mới",
 				icon: MdAddBox,
-				content: "",
+				content: <CreateEventTab setPage={setPage} />,
 			},
 			{
 				tab: "Hướng dẫn",

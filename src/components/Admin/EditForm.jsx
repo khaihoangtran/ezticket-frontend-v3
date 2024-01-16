@@ -2,7 +2,7 @@ import { HiCode, HiCog, HiCheck } from 'react-icons/hi';
 import UploadBox from './UploadBox';
 import Editor from './Editor';
 
-export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFormData, categories }) {
+export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFormData, categories, editstate }) {
     const updateFormData = (e, tag) => {
         let updatedFormData = {
             ...formData,
@@ -73,49 +73,51 @@ export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFor
                 )}
             </div>
 
-            <div className="col-span-1">
-                <div className="w-full bg-gray-50 rounded border border-gray-200">
-                    <div className="p-4">
-                        <p className="text-xs">Thông tin cập nhật</p>
-                        <div className="pt-5">
-                            <div className="flex flex-row items-center justify-between">
-                                <p className="text-xs text-gray-400 text-uppercase">Cập nhật lần cuối</p>
-                                <p className="text-xs text-gray-400 text-uppercase">2 tháng trước</p>
+            {editstate && (
+                <div className="col-span-1">
+                    <div className="w-full bg-gray-50 rounded border border-gray-200">
+                        <div className="p-4">
+                            <p className="text-xs">Thông tin cập nhật</p>
+                            <div className="pt-5">
+                                <div className="flex flex-row items-center justify-between">
+                                    <p className="text-xs text-gray-400 text-uppercase">Cập nhật lần cuối</p>
+                                    <p className="text-xs text-gray-400 text-uppercase">2 tháng trước</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className="pt-5">
-                            <div className="flex flex-row items-center justify-between">
-                                <p className="text-xs text-gray-400 text-uppercase">Người cập nhật</p>
-                                <p className="text-xs text-gray-400 text-uppercase">admin</p>
+                            <div className="pt-5">
+                                <div className="flex flex-row items-center justify-between">
+                                    <p className="text-xs text-gray-400 text-uppercase">Người cập nhật</p>
+                                    <p className="text-xs text-gray-400 text-uppercase">admin</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="w-full my-3 bg-emerald-50 flex items-center border border-gray-200">
-                    <div className="p-2 flex flex-row gap-2">
-                        <HiCheck color="#76BA99" />
-                        <p className="text-xs text-main font-medium">Thông tin tổ chức đã được cập nhật</p>
+                    <div className="w-full my-3 bg-emerald-50 flex items-center border border-gray-200">
+                        <div className="p-2 flex flex-row gap-2">
+                            <HiCheck color="#76BA99" />
+                            <p className="text-xs text-main font-medium">Thông tin tổ chức đã được cập nhật</p>
+                        </div>
+                    </div>
+
+                    <div className="w-full bg-gray-50 rounded border border-gray-200">
+                        <ul>
+                            <li className="cursor-pointer hover:bg-gray-100 px-5 py-1 border-b border-gray-200">
+                                <div className="flex flex-row items-center h-8 gap-2">
+                                    <HiCode />
+                                    <p className="text-xs">Chỉnh sửa giao diện</p>
+                                </div>
+                            </li>
+                            <li className="cursor-pointer hover:bg-gray-100 px-5 py-1 border-b border-gray-200">
+                                <div className="flex flex-row items-center h-8 gap-2">
+                                    <HiCog />
+                                    <p className="text-xs">Thay đổi các mục</p>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-
-                <div className="w-full bg-gray-50 rounded border border-gray-200">
-                    <ul>
-                        <li className="cursor-pointer hover:bg-gray-100 px-5 py-1 border-b border-gray-200">
-                            <div className="flex flex-row items-center h-8 gap-2">
-                                <HiCode />
-                                <p className="text-xs">Chỉnh sửa giao diện</p>
-                            </div>
-                        </li>
-                        <li className="cursor-pointer hover:bg-gray-100 px-5 py-1 border-b border-gray-200">
-                            <div className="flex flex-row items-center h-8 gap-2">
-                                <HiCog />
-                                <p className="text-xs">Thay đổi các mục</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            )}
         </div>
     );
 }

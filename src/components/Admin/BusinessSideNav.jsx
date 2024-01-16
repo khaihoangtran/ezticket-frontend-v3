@@ -11,10 +11,10 @@ export default function BusinessSideNav({ setPage }) {
             <Sidebar.Items>
                 <Sidebar.ItemGroup>
                     <Sidebar.Item
-                        onClick={() => {
-                            setPage('Trang chủ');
-                        }}
-                        href="#"
+                        // onClick={() => {
+                        //     setPage('Trang chủ');
+                        // }}
+                        href="/"
                         icon={MdDashboard}
                     >
                         Trang chủ
