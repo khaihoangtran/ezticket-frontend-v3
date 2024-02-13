@@ -1,7 +1,7 @@
 import React from "react";
 import { LuUser, LuMail, LuSmartphone } from "react-icons/lu";
 
-const CustomerInfo = () => {
+const CustomerInfo = ({ user }) => {
 	return (
 		<table className="table w-[100%]">
 			<tbody>
@@ -19,7 +19,7 @@ const CustomerInfo = () => {
 						<LuUser />
 					</td>
 					<td className="text-sm font-medium px-1">Họ tên</td>
-					<td className="text-sm text-right">Kuo Nhan Dung</td>
+					<td className="text-sm text-right">{user?.fullname}</td>
 				</tr>
 
 				<tr className="table-row">
@@ -28,7 +28,7 @@ const CustomerInfo = () => {
 					</td>
 					<td className="text-sm font-medium px-1">Email</td>
 					<td className="text-sm text-right">
-						nkeyskuo124@gmail.com
+						{user?.email}
 					</td>
 				</tr>
 
@@ -37,7 +37,7 @@ const CustomerInfo = () => {
 						<LuSmartphone />
 					</td>
 					<td className="text-sm font-medium px-1">Điện thoại</td>
-					<td className="text-sm text-right">0767916592</td>
+					<td className="text-sm text-right">{user?.phone}</td>
 				</tr>
 			</tbody>
 		</table>

@@ -1,7 +1,7 @@
 import { FileInput, Label } from "flowbite-react";
 import { useState } from "react";
 
-export default function UploadBox({ setData }) {
+export default function UploadBox({ tag, data, setData }) {
 	const [uploadedFile, setUploadedFile] = useState('');
 
 	const handleFileChange = (event) => {
@@ -12,7 +12,10 @@ export default function UploadBox({ setData }) {
             return; // No file selected
         }
         
-        setData(file);
+		const updatedData = {...data};
+		updatedData[tag] = file;
+		setData(updatedData);
+
 		setUploadedFile(file.name);
     };
 

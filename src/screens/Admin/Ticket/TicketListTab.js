@@ -4,7 +4,7 @@ import ListTable from '../../../components/Admin/ListTable';
 import Collapsible from '../../../components/Admin/Collapsible';
 import axios from 'axios';
 
-export default function TicketListTab({ setPage }) {
+export default function TicketListTab() {
     const [formData, setFormData] = useState({});
 
     const [tickets, setTickets] = useState([]);
@@ -14,14 +14,14 @@ export default function TicketListTab({ setPage }) {
         const selectedEvent = localStorage.getItem('selectedEvent');
         const options = {
             method: 'GET',
-            url: `${process.env.REACT_APP_API_URL}/api/ticket/group_by_event/${selectedEvent}`,
+            url: `${process.env.REACT_APP_API_URL}/api/event/${selectedEvent}`,
             headers: {
                 'Content-Type': 'application/json',
             },
             params: {},
         };
 
-        const fetchDataEvent = async () => {
+        const fetchDataEvents = async () => {
             await axios
                 .request(options)
                 .then((response) => {
@@ -39,7 +39,7 @@ export default function TicketListTab({ setPage }) {
                 });
         };
 
-        fetchDataEvent();
+        fetchDataEvents();
     }, []);
 
     return (
@@ -56,12 +56,10 @@ export default function TicketListTab({ setPage }) {
 
                 <div className="w-full mt-4 bg-gray-50 rounded border border-gray-200 grid grid-cols-3">
                     <div className="relative w-full flex text-center justify-center col-span-1 cursor-pointer">
-                        <img onClick={() => {
-                            setPage('Sự kiện')
-                        }} className="w-[100%]" src={event.banner} />
+                        <img className="w-[100%]" src={event.banner} />
                     </div>
                     <div className='col-span-2'>
-                     <ListTable tickets={tickets} event={event} headcells={headcells} setPage={setPage} />
+                     
                     </div>
                 </div>
             </section>

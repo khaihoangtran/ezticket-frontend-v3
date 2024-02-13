@@ -10,16 +10,13 @@ export default function CreateEventTab() {
     });
 
     const [formData, setFormData] = useState({
-        event_name: '',
-        occur_date: '',
-        category: '',
-        time: '',
-        location: '',
-        introduce: '',
+        event: '',
+        ticket_name: '',
+        price: 0
     });
 
     const [isSubmiting, setIsSubmiting] = useState(false);
-    const [categories, setCategories] = useState([]);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         const fetchDataCategories = async () => {
@@ -117,16 +114,13 @@ export default function CreateEventTab() {
                         </button>
                     </div>
                 </div>
-                <div className="col-span-3 bg-gray-50 border border-gray-300 p-5 rounded">
-                    <div className="grid grid-cols-2 gap-5">
-                        <EditForm
-                            inputs={inputs}
-                            data={formData}
-                            setData={setFormData}
-                            categories={categories}
-                        />
-                    </div>
-                </div>
+                <EditForm
+                    inputs={inputs}
+                    data={formData}
+                    setData={setFormData}
+                    editstate={true}
+                    categories={categories}
+                />
             </section>
         </>
     );

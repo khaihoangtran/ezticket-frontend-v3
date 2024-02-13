@@ -1,8 +1,12 @@
 import { Sidebar, CustomFlowbiteTheme } from 'flowbite-react';
-import { HiArchive, HiInbox, HiLockClosed, HiLockOpen, HiLogout, HiShare, HiTicket, HiViewBoards } from 'react-icons/hi';
-import { MdDashboard } from 'react-icons/md';
+import { useState } from 'react';
+import { HiArchive, HiInbox, HiLockClosed, HiLogout, HiShare, HiTicket, HiViewBoards } from 'react-icons/hi';
+import { MdDashboard, MdMonitor } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
-export default function BusinessSideNav({ setPage }) {
+export default function BusinessSideNav() {
+    const [navActive, setNavActive] = useState(1);
+    // console.log(navActive)
     return (
         <Sidebar theme={customTheme}>
             <Sidebar.Logo href="#" img={process.env.REACT_APP_LOGO_URL} imgAlt="EzTicket logo">
@@ -10,45 +14,55 @@ export default function BusinessSideNav({ setPage }) {
             </Sidebar.Logo>
             <Sidebar.Items>
                 <Sidebar.ItemGroup>
-                    <Sidebar.Item
-                        // onClick={() => {
-                        //     setPage('Trang chủ');
-                        // }}
-                        href="/"
-                        icon={MdDashboard}
-                    >
+                    <Sidebar.Item href="/" icon={MdMonitor}>
                         Trang chủ
                     </Sidebar.Item>
-
-                    <Sidebar.Item
-                        onClick={() => {
-                            setPage('Tổ chức');
-                        }}
-                        href="#"
-                        icon={HiInbox}
-                    >
-                        Thông tin tổ chức
+                    <Sidebar.Item className={navActive === 1 && 'bg-main'} href="#" icon={MdDashboard}>
+                        <Link
+                            onClick={() => {
+                                setNavActive(1);
+                            }}
+                            className="w-full block"
+                            to="/business"
+                        >
+                            Dashboard
+                        </Link>
                     </Sidebar.Item>
 
-                    <Sidebar.Item
-                        onClick={() => {
-                            setPage('Sự kiện');
-                        }}
-                        href="#"
-                        icon={HiViewBoards}
-                    >
-                        Sự kiện
+                    <Sidebar.Item className={navActive === 2 && 'bg-main'} href="#" icon={HiInbox}>
+                        <Link
+                            onClick={() => {
+                                setNavActive(2);
+                            }}
+                            className="w-full block"
+                            to="/business/info"
+                        >
+                            Thông tin tổ chức
+                        </Link>
                     </Sidebar.Item>
 
-                    <Sidebar.Item
-						className="hidden"
-                        onClick={() => {
-                            setPage('Vé');
-                        }}
-						href="#"
-                        icon={HiTicket}
-                    >
-                        Vé vào cổng
+                    <Sidebar.Item className={navActive === 3 && 'bg-main'} href="#" icon={HiViewBoards}>
+                        <Link
+                            onClick={() => {
+                                setNavActive(3);
+                            }}
+                            className="w-full block"
+                            to="/business/event"
+                        >
+                            Sự kiện
+                        </Link>
+                    </Sidebar.Item>
+
+                    <Sidebar.Item className={navActive === 4 && 'bg-main'} href="#" icon={HiTicket}>
+                        <Link
+                            onClick={() => {
+                                setNavActive(4);
+                            }}
+                            className="w-full block"
+                            to="/business/ticket"
+                        >
+                            Vé vào cổng
+                        </Link>
                     </Sidebar.Item>
                     <Sidebar.Item href="#" icon={HiArchive}>
                         Quyền lợi

@@ -14,7 +14,7 @@ const customTheme = {
       "on": "bg-main dark:bg-gray-800"
     },
     "base": "h-2 w-5 rounded",
-    "wrapper": "absolute bottom-5 left-1/2 flex -translate-x-1/2 space-x-3"
+    "wrapper": "absolute bottom-[-20px] left-1/2 flex -translate-x-1/2 space-x-3"
   },
   "item": {
     "base": "absolute top-1/2 left-1/2 block w-full -translate-x-1/2 -translate-y-1/2",
@@ -39,7 +39,7 @@ export default function Component({ list }) {
       <Carousel theme={customTheme} slideInterval={2000}>
         {list.map((item, index) => {
             return (
-                <Link className='w-full' to={item.link}>
+                <Link key={index} className='w-full' to={`/event/${item.slug}`}>
                   <img className='object-scale-down w-full' key={index} src={item.banner} alt="..." />
                 </Link>
             )

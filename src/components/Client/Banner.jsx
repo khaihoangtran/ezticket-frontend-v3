@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Banner = () => {
+const Banner = ({ event }) => {
   return (
     <div className="banner-container w-full px-8 py-6 bg-gradient-to-t from-black to-gray-700 h-auto text-white text-base">
 				<div 
@@ -23,8 +23,7 @@ const Banner = () => {
 						<div className="w-[100%] h-[100%] flex flex-col justify-between">
 							<div className="flex flex-col justify-center overflow-hidden">
 								<p className="text-xl text-emerald-300">
-									[LULULOLA SHOW] QUỐC THIÊN &amp; LÂM BẢO
-									NGỌC | MÙNG 3 TẾT
+									{event.event_name}
 								</p>
 								<p className="mt-6 flex flex-row">
 									<svg
@@ -41,7 +40,7 @@ const Banner = () => {
 										></path>
 									</svg>
 									<span className="leading-4 pl-2">
-										17:15 - 19:15, 12 tháng 2, 2024
+										{event.time}, {new Date(event.occur_date).toLocaleDateString('vi-vn')}
 									</span>
 								</p>
 								<p className="flex items-center mt-6">
@@ -62,12 +61,11 @@ const Banner = () => {
 									</svg>
 
 									<span className="leading-4 pl-2">
-										Lululola Coffee
+										{event.location}
 									</span>
 								</p>
 								<p className="address text-xs ml-7 mb-3">
-									Đường 3/4, Đồi Cà Ri Dê, Phường 3, Thành Phố
-									Đà Lạt, Tỉnh Lâm Đồng
+									{event.address}
 								</p>
 							</div>
 
@@ -75,7 +73,7 @@ const Banner = () => {
 								<div className="ticket-price flex items-center gap-2 py-4">
 									<span>Giá từ</span>
 									<a href="#" className="price-value flex items-center gap-2 text-emerald-300">
-										<span>400.000 đ</span>
+										<span>{event.ticket_types[0]?.price.toLocaleString('vi-vn')} đ</span>
 										<svg
 											width="8"
 											height="14"
@@ -99,7 +97,7 @@ const Banner = () => {
 					<div className="img-wrapper flex-1 basis-1/3">
 						<img
                             className="h-[100%]"
-							src="https://images.tkbcdn.com/1/1560/600/Upload/eventcover/2023/11/08/3C2FE2.jpg"
+							src={event.banner}
 							alt="Banner cover"
 						/>
 					</div>

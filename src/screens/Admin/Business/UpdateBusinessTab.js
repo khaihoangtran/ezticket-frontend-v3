@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { HiCheck, HiCode, HiCog } from "react-icons/hi";
 import EditForm from "../../../components/Admin/EditForm";
 
 
@@ -36,7 +35,7 @@ const inputs = [
 	},
 ];
 
-export default function UpdateBusinessScreen() {
+export default function UpdateBusinessTab() {
     const [formData, setFormData] = useState({
         business_name: '',
         business_type: '',

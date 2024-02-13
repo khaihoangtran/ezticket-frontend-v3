@@ -27,7 +27,7 @@ export default function SecondHeader() {
 						<img src={logo_url} className="w-[30%]" />
 					</Link>
 
-					<div className="flex items-center relative w-[100%]">
+					<div className="desktop:flex hidden items-center relative w-[100%]">
 						<svg
 							className="absolute left-3"
 							width="22"
@@ -145,7 +145,7 @@ export default function SecondHeader() {
                 border-b-1 border-slate-500"
 				>
 					<div className="flex flex-row items-center h-[100%] w-[100%] ml-10">
-						<ul className="flex flex-row items-center justify-start gap-10 text-black px-10">
+						<ul className="flex flex-row items-center justify-start desktop:gap-10 gap-5 text-black px-10">
 							<li className="desktop:text-sm text-xs font-medium pointer hover:text-emerald-300">
 								<Link to="#">Concert nhạc</Link>
 							</li>

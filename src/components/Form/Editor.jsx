@@ -3,7 +3,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
-export default function Editor({ data, setData }) {
+export default function Editor({ data, setData, tag }) {
 	return (
 		<CKEditor
 			editor={ClassicEditor}
@@ -11,25 +11,26 @@ export default function Editor({ data, setData }) {
 				extraPlugins: [ MyCustomUploadAdapterPlugin ],
                 removePlugins: ['SpellChecker'],
 			}}
-			data={data}
+			data={data[tag]}
 			onReady={(editor) => {
                 editor.editing.view.change(writer => {
                     writer.setAttribute('spellcheck', 'false', editor.editing.view.document.getRoot());
                 });
 				// You can store the "editor" and use when it is needed.
-				console.log("Editor is ready to use!", editor);
+				// console.log("Editor is ready to use!", editor);
 			}}
 			onChange={(event, editor) => {
-				const data = editor.getData();
-				setData(data);
+                const updatedData = {...data};
+                updatedData[tag] = editor.getData();
+				setData(updatedData);
                 
-				console.log({ event, editor, data });
+				// console.log({ event, editor, data });
 			}}
 			onBlur={(event, editor) => {
-				console.log("Blur.", editor);
+				// console.log("Blur.", editor);
 			}}
 			onFocus={(event, editor) => {
-				console.log("Focus.", editor);
+				// console.log("Focus.", editor);
 			}}
 		/>
 	);

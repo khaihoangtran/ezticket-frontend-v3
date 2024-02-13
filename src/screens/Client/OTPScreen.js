@@ -45,6 +45,8 @@ export default function OTPScreen() {
             }
 		};
 
+		console.log(options)
+
         const ConfirmOTP = async () => {
             await axios.request(options)
                 .then(response => {
@@ -62,7 +64,7 @@ export default function OTPScreen() {
                 .catch(err => {
                     const msg = err.response.data.msg;
                     setErrorMessage(msg);
-                    console.log(msg);
+                    console.log(err);
                 })
         }
 
