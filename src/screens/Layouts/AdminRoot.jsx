@@ -11,7 +11,7 @@ export default function AdminRoot() {
 			const isAuth = await checkAuth();
 			
 			if(!isAuth) {
-				localStorage.removeItem('user');
+				localStorage.clear();
 				window.location.href = '/login';
 			}
 		}

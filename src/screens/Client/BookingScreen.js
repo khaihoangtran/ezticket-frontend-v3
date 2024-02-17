@@ -7,9 +7,22 @@ import { BiCreditCard, BiLogoPaypal, BiLogoAmazon } from 'react-icons/bi';
 import axios from 'axios';
 import { Toast, Spinner } from 'flowbite-react';
 import { HiExclamation } from 'react-icons/hi';
-
+import { checkAuth } from '../../utils';
 
 export default function BookingScreen() {
+    useEffect(() => {
+        const checkAuthAsync = async () => {
+            const isAuth = await checkAuth();
+
+            if (!isAuth) {
+                localStorage.clear();
+                window.location.href = '/login';
+            }
+        };
+
+        checkAuthAsync();
+    }, []);
+
     const [user, setUser] = useState(() => {
         const userJson = localStorage.getItem('user');
         return userJson ? JSON.parse(userJson) : null;
@@ -62,6 +75,11 @@ export default function BookingScreen() {
     }, []);
 
     const handleStage1 = () => {
+        if (paymentActive === 'amazon') {
+            setErrorMessage('Amazon Pay đang được bảo trì. Vùi lòng chọn phương thức thanh toán khác.');
+            return;
+        }
+
         setIsCreatingBooking(true);
         const createBooking = async () => {
             const options = {
@@ -78,8 +96,8 @@ export default function BookingScreen() {
                 .request(options)
                 .then((response) => {
                     const result = response.data;
-                    window.location.href = `/event/${event_slug}/booking/${result.booking_id}/checkout`
-                    
+                    window.location.href = `/event/${event_slug}/booking/${result.booking_id}/checkout`;
+
                     console.log(result);
                 })
                 .catch((err) => {
@@ -189,8 +207,6 @@ export default function BookingScreen() {
                                 </div>
                             </>
 
-                            
-
                             <div className="relative desktop:col-span-2 laptop:col-span-3 col-span-6 w-[100%]">
                                 <div className="w-[100%] px-4 py-4 bg-zinc-800">
                                     <div className="w-[100%] pb-3">
@@ -201,7 +217,6 @@ export default function BookingScreen() {
                                         <div className="text-md font-medium text-emerald-300 py-2">
                                             Thông tin đặt vé
                                         </div>
-                                       
                                     </div>
 
                                     <div className="py-2 border-b border-dashed mt-1 border-gray-300">
@@ -252,7 +267,7 @@ export default function BookingScreen() {
                                     }}
                                     className="absolute bg-main py-3 text-center rounded w-[100%] mt-5"
                                 >
-                                    {isCreatingBooking ? <Spinner color='success' /> : 'Tiếp tục'}
+                                    {isCreatingBooking ? <Spinner color="success" /> : 'Tiếp tục'}
                                 </button>
                             </div>
                         </div>

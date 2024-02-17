@@ -1,24 +1,29 @@
 import { useEffect, useState } from 'react';
 import { Banner } from '../../components/Client';
 import { Link, useParams } from 'react-router-dom';
-import TicketList from '../../components/Client/TicketList';
 import CustomerInfo from '../../components/Client/CustomerInfo';
-import { BiCreditCard, BiLogoPaypal, BiLogoAmazon } from 'react-icons/bi';
 import axios from 'axios';
 import { Toast, Spinner } from 'flowbite-react';
 import { HiExclamation } from 'react-icons/hi';
-import { FaRegCopy } from 'react-icons/fa6';
-import { LuTicket } from 'react-icons/lu';
+import { checkAuth } from '../../utils';
 
 export default function CheckoutScreen() {
+    useEffect(() => {
+        const checkAuthAsync = async () => {
+            const isAuth = await checkAuth();
+
+            if (!isAuth) {
+                localStorage.clear();
+                window.location.href = '/login';
+            }
+        };
+
+        checkAuthAsync();
+    }, []);
+
     const [user, setUser] = useState(() => {
         const userJson = localStorage.getItem('user');
         return userJson ? JSON.parse(userJson) : null;
-    });
-
-    const [formData, setFormData] = useState({
-        items: [],
-        temporary_cost: 0,
     });
 
     const [errorMessage, setErrorMessage] = useState('');
@@ -95,7 +100,7 @@ export default function CheckoutScreen() {
                     event_id: event._id,
                     booking_id: booking_id,
                     total: booking.temporary_cost * 1.06,
-                    owner: user._id
+                    owner: user._id,
                 },
             };
 
@@ -106,9 +111,8 @@ export default function CheckoutScreen() {
 
                     if (result.success) {
                         window.open(result.session_url, '_blank');
-                    }
-                    else {
-                        if(result.is_paid) {
+                    } else {
+                        if (result.is_paid) {
                             alert(result.msg);
                             window.location.href = '/';
                         }
@@ -122,14 +126,56 @@ export default function CheckoutScreen() {
                 .finally(() => {
                     setTimeout(() => {
                         setIsCreatePayment(false);
-                    }, 1000)
-                })
+                    }, 1000);
+                });
         };
 
         Checkout();
     };
 
-    const handleCancelBooking = () => {};
+    const handleCancelBooking = () => {
+        const CancelBooking = async () => {
+            const options = {
+                url: `${process.env.REACT_APP_API_URL}/api/booking/cancel/${booking_id}`,
+                method: 'PUT',
+            };
+
+            await axios
+                .request(options)
+                .then((response) => {
+                    const result = response.data;
+
+                    if (result.success) {
+                        alert('Đơn hàng đã hết thời hạn');
+                        window.location.href = `/event/${event_slug}/booking`;
+                    }
+
+                    console.log(result);
+                })
+                .catch((err) => {
+                    alert(err.response.data.msg);
+                    console.log(err);
+                });
+        };
+
+        CancelBooking();
+    };
+
+    const [timeRemaining, setTimeRemaining] = useState(600);
+
+    useEffect(() => {
+        if (timeRemaining > 0) {
+            const timerId = setInterval(() => {
+                setTimeRemaining((prevTime) => prevTime - 1);
+            }, 1000);
+
+            // console.log(timeRemaining)
+            // Cleanup the interval when the component is unmounted or when timeRemaining reaches 0
+            return () => clearInterval(timerId);
+        } else {
+            handleCancelBooking();
+        }
+    }, [timeRemaining]);
 
     return (
         <>
@@ -147,7 +193,7 @@ export default function CheckoutScreen() {
                                             <div className="text-md font-medium text-emerald-300 py-2">
                                                 Thông tin đặt vé
                                             </div>
-                                            <button onClick={handleCancelBooking} className="text-xs text-blue-400">
+                                            <button onClick={handleCancelBooking} className="text-xs text-red-400">
                                                 Chọn lại vé
                                             </button>
                                         </div>
@@ -186,10 +232,18 @@ export default function CheckoutScreen() {
                                         <div>Giao dịch sẽ hết hạn sau</div>
                                         <div className="flex flex-row items-center justify-center gap-4">
                                             <div className="w-10 h-10 bg-gray-200 flex items-center justify-center">
-                                                <p className="text-sm text-black-500 font-medium">09</p>
+                                                <p className="text-sm text-black-500 font-medium">
+                                                    {parseInt(timeRemaining / 60) < 10
+                                                        ? '0' + parseInt(timeRemaining / 60)
+                                                        : parseInt(timeRemaining / 60)}
+                                                </p>
                                             </div>
                                             <div className="w-10 h-10 bg-gray-200 flex items-center justify-center">
-                                                <p className="text-sm text-black-500 font-medium">59</p>
+                                                <p className="text-sm text-black-500 font-medium">
+                                                    {parseInt(timeRemaining % 60) < 10
+                                                        ? '0' + parseInt(timeRemaining % 60)
+                                                        : parseInt(timeRemaining % 60)}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -234,7 +288,7 @@ export default function CheckoutScreen() {
                                     }}
                                     className="absolute bg-main py-3 text-center rounded w-[100%] mt-5"
                                 >
-                                   {isCreatePayment ? <Spinner color='success' /> : 'Thanh toán'}
+                                    {isCreatePayment ? <Spinner color="success" /> : 'Thanh toán'}
                                 </button>
                             </div>
                         </div>

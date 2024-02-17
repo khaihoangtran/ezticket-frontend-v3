@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Dropdown } from "flowbite-react";
-import { LuFolderOpen, LuHelpCircle, LuLogOut, LuUser } from "react-icons/lu";
+import { LuFolderOpen, LuHelpCircle, LuLogOut, LuTicket, LuUser } from "react-icons/lu";
 
 const logo_url = process.env.REACT_APP_LOGO_URL;
 
@@ -100,6 +100,14 @@ export default function SecondHeader() {
 											<LuUser /> {user.email}
 										</span>
 									</Dropdown.Header>
+									<Dropdown.Item>
+										<Link
+											to="/my_tickets"
+											className="flex flex-row gap-2 text-sm text-center items-center"
+										>
+											<LuTicket /> Vé của bạn
+										</Link>
+									</Dropdown.Item>
 									<Dropdown.Item>
 										<Link
 											to="/business"
