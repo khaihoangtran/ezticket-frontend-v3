@@ -13,73 +13,29 @@ const AdminScreen = ({ page }) => {
     return (
         <section className='bg-gray-50'>
             <section className="flex-shrink-0">
-                <MenuTab list={menu[page]} />
+                {/* <MenuTab list={menu[page]} /> */}
             </section>
         </section>
     );
 };
 
 const menu = {
-	"Dashboard": [
-		{
-			tab: "Dashboard",
-			icon: MdDashboard,
-			content: <DashboardTab />,
-		},
-		{
-			tab: "Chỉnh sửa",
-			icon: MdSettings,
-			content: <CreateEventTab />,
-		},
-	],
-	"Tổ chức": [
-		{
-			tab: "Cập nhật",
-			icon: MdSettings,
-			content: <UpdateBusinessTab />,
-		},
-		{
-			tab: "Điều khoản",
-			icon: MdRule,
-			content: "",
-		},
-	],
-	"Sự kiện": [
+	// ADMIN Tabs
+	"ProveEvent": [
 		{
 			tab: "Danh sách sự kiện",
 			icon: MdList,
-			content: <EventListTab  />,
-		},
-		{
-			tab: "Tạo mới",
-			icon: MdAddBox,
-			content: <CreateEventTab  />,
-		},
-		{
-			tab: "Hướng dẫn",
-			icon: MdOutlineCrop,
-			content: "",
-		},
+			
+		}
 	],
-	"Vé": [
-		{
-			tab: "Danh sách vé",
-			icon: MdList,
-			content: <TicketListTab  />,
-		},
-		{
-			tab: "Tạo mới",
-			icon: MdAddBox,
-			content: "",
-		},
-		{
-			tab: "Hướng dẫn",
-			icon: MdOutlineCrop,
-			content: "",
-		},
-	],
-};
+	"Help": [
 
+	],
+    "Refund": [
+
+    ],
+
+};
 
 
 export default AdminScreen;

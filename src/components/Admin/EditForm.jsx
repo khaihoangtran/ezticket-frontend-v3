@@ -10,7 +10,7 @@ export default function EditForm({ ckeditor, inputs, uploadbox, formData, setFor
         updatedFormData[tag] = e.target.value;
         setFormData(updatedFormData);
     };
-
+    
     return (
         <div className="grid grid-cols-4 gap-10">
             <div className="col-span-3 bg-gray-50 border border-gray-300 p-5 rounded">

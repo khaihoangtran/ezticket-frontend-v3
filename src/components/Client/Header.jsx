@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'flowbite-react';
-import { LuFolderOpen, LuHelpCircle, LuLogOut, LuTicket, LuUser } from 'react-icons/lu';
+import { LuChevronDown, LuFolderOpen, LuHelpCircle, LuLogOut, LuSearch, LuTicket, LuUser } from 'react-icons/lu';
 
 const logo_url = process.env.REACT_APP_LOGO_URL;
 
@@ -24,16 +24,7 @@ export default function Header() {
                 </Link>
 
                 <div className="flex items-center relative w-[100%]">
-                    <svg className="absolute left-3" width="22" height="24" fill="none">
-                        <path
-                            d="M11 17a6 6 0 100-12 6 6 0 000 12zM18.5 18.5l-3-3"
-                            stroke="#fff"
-                            stroke-width="2"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        ></path>
-                    </svg>
+                    <LuSearch className="absolute left-1 w-10 text-gray-300" fill="none" />
 
                     <input
                         type="text"
@@ -50,37 +41,21 @@ export default function Header() {
                     className="flex items-center justify-center w-32 mx-4 
                     bg-slate-700 text-white text-sm
                     h-9 leading-9 min-w-[90px] 
-                    border-2 border-slate-700 rounded-lg"
+                    rounded-lg"
                 >
                     Tạo sự kiện
                 </Link>
 
-                <div className="pointer">
+                <div className="cursor-pointer">
                     <Link to="#" className="flex items-center">
-                        <svg width="24" height="24" fill="none">
-                            <path
-                                d="M19.758 12a2.91 2.91 0 011.928-2.74c.52-.186.98-.617.98-1.17V5.243a1 1 0 00-1-1H2.334a1 1 0 00-1 1v2.849c0 .552.461.983.981 1.17a2.91 2.91 0 010 5.478c-.52.187-.98.618-.98 1.17v2.848a1 1 0 001 1h19.333a1 1 0 001-1V15.91c0-.552-.461-.983-.981-1.17A2.91 2.91 0 0119.758 12z"
-                                stroke="#fff"
-                                stroke-width="2"
-                                stroke-miterlimit="10"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            ></path>
-                            <path
-                                d="M8.121 10.06h7.758M8.121 13.94h7.758"
-                                stroke="#fff"
-                                stroke-miterlimit="10"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            ></path>
-                        </svg>
+                        <LuTicket className='text-white' size="27" />
                     </Link>
                 </div>
 
                 <div className="flex items-center text-white text-sm">
                     {user ? (
                         <span className="px-4 cursor-pointer">
-                            <Dropdown label="" renderTrigger={() => <span>{user.fullname}</span>}>
+                            <Dropdown label="" renderTrigger={() => <span className='flex flex-row gap-1 items-center'>{user.fullname} <LuChevronDown /> </span>}>
                                 <Dropdown.Header>
                                     <span className="flex flex-row gap-2 text-sm text-center items-center">
                                         <LuUser /> {user.email}
@@ -88,7 +63,7 @@ export default function Header() {
                                 </Dropdown.Header>
                                 <Dropdown.Item>
                                     <Link
-                                        to="/my_tickets"
+                                        to="/user/my_tickets"
                                         className="flex flex-row gap-2 text-sm text-center items-center"
                                     >
                                         <LuTicket /> Vé của bạn

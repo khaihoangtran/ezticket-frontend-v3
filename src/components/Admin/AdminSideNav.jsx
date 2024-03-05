@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function BusinessSideNav() {
     const [navActive, setNavActive] = useState(1);
-    // console.log(navActive)a
+    // console.log(navActive)
     return (
         <Sidebar theme={customTheme}>
             <Sidebar.Logo href="#" img={process.env.REACT_APP_LOGO_URL} imgAlt="EzTicket logo">
@@ -23,9 +23,9 @@ export default function BusinessSideNav() {
                                 setNavActive(1);
                             }}
                             className="w-full block"
-                            to="/business"
+                            to="/admin/events"
                         >
-                            Dashboard
+                            Phê duyệt sự kiện
                         </Link>
                     </Sidebar.Item>
 
@@ -35,9 +35,9 @@ export default function BusinessSideNav() {
                                 setNavActive(2);
                             }}
                             className="w-full block"
-                            to="/business/info"
+                            to="/admin/help"
                         >
-                            Thông tin tổ chức
+                            Yêu cầu hỗ trợ
                         </Link>
                     </Sidebar.Item>
 
@@ -47,13 +47,13 @@ export default function BusinessSideNav() {
                                 setNavActive(3);
                             }}
                             className="w-full block"
-                            to="/business/event"
+                            to="/admin/refund"
                         >
-                            Sự kiện
+                            Yêu cầu hoàn tiền
                         </Link>
                     </Sidebar.Item>
 
-                    <Sidebar.Item className={navActive === 4 && 'bg-main'} href="#" icon={HiTicket}>
+                    {/* <Sidebar.Item className={navActive === 4 && 'bg-main'} href="#" icon={HiTicket}>
                         <Link
                             onClick={() => {
                                 setNavActive(4);
@@ -63,19 +63,10 @@ export default function BusinessSideNav() {
                         >
                             Vé vào cổng
                         </Link>
-                    </Sidebar.Item>
-                    <Sidebar.Item href="#" icon={HiArchive}>
-                        Quyền lợi
-                    </Sidebar.Item>
-                    <Sidebar.Item href="#" icon={HiLockClosed}>
-                        Chính sách
-                    </Sidebar.Item>
-                    <Sidebar.Item href="#" icon={HiShare}>
-                        Dịch vụ
-                    </Sidebar.Item>
+                    </Sidebar.Item> */}
                     <Sidebar.Item onClick={() => {
                         localStorage.clear();
-                        window.location.href = '/login';
+                        window.location.href = '/admin/login'
                     }} href="#" icon={HiLogout}>
                         Đăng xuất
                     </Sidebar.Item>
