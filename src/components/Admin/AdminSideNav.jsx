@@ -1,11 +1,14 @@
 import { Sidebar, CustomFlowbiteTheme } from 'flowbite-react';
 import { useState } from 'react';
 import { HiArchive, HiInbox, HiLockClosed, HiLogout, HiShare, HiTicket, HiViewBoards } from 'react-icons/hi';
-import { MdDashboard, MdMonitor } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { MdDashboard, MdEvent, MdMonitor } from 'react-icons/md';
+import { Link, useHref, useParams } from 'react-router-dom';
 
 export default function BusinessSideNav() {
+    
     const [navActive, setNavActive] = useState(1);
+    const href = useHref();
+    console.log(href)
     // console.log(navActive)
     return (
         <Sidebar theme={customTheme}>
@@ -17,11 +20,18 @@ export default function BusinessSideNav() {
                     <Sidebar.Item href="/" icon={MdMonitor}>
                         Trang chủ
                     </Sidebar.Item>
-                    <Sidebar.Item className={navActive === 1 && 'bg-main'} href="#" icon={MdDashboard}>
+
+                    <Sidebar.Item className={href === '/admin' && 'bg-main'} href="#" icon={MdDashboard}>
                         <Link
-                            onClick={() => {
-                                setNavActive(1);
-                            }}
+                            className="w-full block"
+                            to="/admin"
+                        >
+                            Dashboard
+                        </Link>
+                    </Sidebar.Item>
+
+                    <Sidebar.Item className={href === '/admin/events' && 'bg-main'} href="#" icon={MdEvent}>
+                        <Link
                             className="w-full block"
                             to="/admin/events"
                         >
@@ -29,11 +39,8 @@ export default function BusinessSideNav() {
                         </Link>
                     </Sidebar.Item>
 
-                    <Sidebar.Item className={navActive === 2 && 'bg-main'} href="#" icon={HiInbox}>
+                    <Sidebar.Item className={href === '/admin/help' && 'bg-main'} href="#" icon={HiInbox}>
                         <Link
-                            onClick={() => {
-                                setNavActive(2);
-                            }}
                             className="w-full block"
                             to="/admin/help"
                         >
@@ -41,11 +48,8 @@ export default function BusinessSideNav() {
                         </Link>
                     </Sidebar.Item>
 
-                    <Sidebar.Item className={navActive === 3 && 'bg-main'} href="#" icon={HiViewBoards}>
+                    <Sidebar.Item className={href === '/admin/refund' && 'bg-main'} href="#" icon={HiViewBoards}>
                         <Link
-                            onClick={() => {
-                                setNavActive(3);
-                            }}
                             className="w-full block"
                             to="/admin/refund"
                         >

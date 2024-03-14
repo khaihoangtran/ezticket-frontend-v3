@@ -7,7 +7,7 @@ import { Checkbox, Table } from 'flowbite-react';
 import { LuFileEdit, LuTicket, LuTrash } from 'react-icons/lu';
 import { HiPencil, HiStatusOffline, HiStatusOnline, HiTrash } from 'react-icons/hi';
 
-export default function EventListTab({ setPage }) {
+export default function EventListTab({}) {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({});
 

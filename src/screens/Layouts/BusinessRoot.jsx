@@ -19,6 +19,7 @@ export default function BusinessRoot() {
 		checkAuthAsync();
 
 	}, [])
+	
 	return (
 		<>
 			<div className="flex min-h-screen">
