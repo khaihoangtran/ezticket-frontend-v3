@@ -52,7 +52,7 @@ export default function EditForm({ inputs, data, setData, editstate, categories 
                             return (
                                 <div key={index} className="col-span-2 mt-5">
                                     <label className="block mb-2 text-sm font-medium">{input.title}</label>
-                                    <UploadBox tag={'file'} data={data} setData={setData} key={index} />
+                                    <UploadBox tag={input.tag} data={data} setData={setData} key={index} />
                                 </div>
                             );
                         default:

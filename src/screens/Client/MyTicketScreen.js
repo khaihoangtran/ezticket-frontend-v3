@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Table, Modal, TextInput, Textarea, FileInput, Label, Spinner, Toast } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { HiCheck, HiExclamation, HiReceiptRefund } from 'react-icons/hi';
+import { HiCheck, HiExclamation, HiPaperAirplane, HiReceiptRefund } from 'react-icons/hi';
 import {
 	LuBadgeHelp,
 	LuDownload,
@@ -9,6 +9,7 @@ import {
 	LuLogOut,
 	LuMail,
 	LuReceipt,
+	LuSend,
 	LuTicket,
 	LuUser,
 	LuVibrate,
@@ -19,6 +20,7 @@ const headcells = ['Sự kiện', 'Mã giao dịch', 'Danh sách vé', 'Đơn gi
 
 export default function MyTicketScreen() {
 	const [bookings, setBookings] = useState([]);
+	const [selectedBooking, setSelectedBooking] = useState({});
 	const [user, setUser] = useState(() => {
 		const userJson = localStorage.getItem('user');
 		return userJson ? JSON.parse(userJson) : null;
@@ -70,18 +72,52 @@ export default function MyTicketScreen() {
 		}
 	};
 
+	
+
+	const handleClickMail = (booking) => {
+		setSelectedBooking(booking)
+		setOpenModal2(true);
+	};
+
+	const handleSendMail = (trade_code) => {
+		const ResendTicket = async () => {
+			const options = {
+				url: `${process.env.REACT_APP_API_URL}/api/ticket/resend/${trade_code}/${user._id}`,
+				method: 'GET'
+			}
+
+			await axios.request(options)
+				.then(response => {
+					const result = response.data;
+
+					if(result.success) {
+						setSuccessMessage('Vé đã được gửi đến email của bạn.')
+					}
+
+					console.log(result);
+				})
+				.catch(err => {
+					console.log(err);
+				})
+
+			console.log(options);
+		}
+		ResendTicket();
+
+
+	}
+ 
+	const handleClickPrint = () => {};
+
+	const [openModal, setOpenModal] = useState(false);
+	const [openModal2, setOpenModal2] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const handleClickRefund = (booking_id, trade_code) => {
 		setFormData({ ...formData, booking: booking_id, trade_code: trade_code });
 		setOpenModal(true);
 		console.log(booking_id);
 	};
-
-	const handleClickMail = () => {};
-
-	const handleClickPrint = () => {};
-
-	const [openModal, setOpenModal] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSendRefund = () => {
 		setIsLoading(true);
@@ -279,6 +315,9 @@ export default function MyTicketScreen() {
 																					size={18}
 																					className="text-rose-600"
 																					title="Gửi lại vé sự kiện"
+																					onClick={() => {
+																						handleClickMail(booking);
+																					}}
 																				/>
 																				<LuDownload
 																					size={18}
@@ -502,6 +541,29 @@ export default function MyTicketScreen() {
 									className="btn bg-main"
 								>
 									{isLoading ? <Spinner /> : `Gửi yêu cầu`}
+								</button>
+							</div>
+						</div>
+					</Modal.Body>
+				</Modal>
+
+				<Modal show={openModal2} size="md" onClose={() => setOpenModal2(false)} popup>
+					<Modal.Header />
+					<Modal.Body>
+						<div className="text-center">
+							<LuMail className="mx-auto mb-4 h-14 w-14 text-red-500 dark:text-gray-200" />
+							<h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+								Bạn muốn nhận lại vé thông qua email?
+							</h3>
+							<div className="flex justify-center gap-4">
+								<button onClick={() => {
+									handleSendMail(selectedBooking.trade_code);
+									setOpenModal2(false);
+								}} className="btn bg-main">
+									{'Xác nhận'}
+								</button>
+								<button style={{ background: '#314133' }} className="btn" onClick={() => setOpenModal2(false)}>
+									Hủy
 								</button>
 							</div>
 						</div>

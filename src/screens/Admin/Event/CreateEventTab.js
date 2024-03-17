@@ -73,7 +73,7 @@ export default function CreateEventTab() {
 
                     if (result.success) {
                         setTimeout(() => {
-                            window.location.href = '/business/event';
+                            window.location.href = '/business/events';
                         }, 2000);
                     }
 
@@ -168,6 +168,11 @@ const inputs = [
         about: 'Địa chỉ của nơi diễn ra sự kiện',
         tag: 'address',
         type: 'text',
+    },
+    {
+        title: 'Giấy phép tổ chức',
+        tag: 'license',
+        type: 'file',
     },
     {
         title: 'Banner sự kiện',
