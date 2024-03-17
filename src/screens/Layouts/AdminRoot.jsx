@@ -1,12 +1,13 @@
 import axios from "axios";
 import BusinessSideNav from "../../components/Admin/BusinessSideNav";
 import AdminSideNav from "../../components/Admin/AdminSideNav";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function AdminRoot() {
 	const [isAdmin, setIsAdmin] = useState(false);
-
+	const navigate = useNavigate();
+	
 	useEffect(() => {
 		const checkAdmin = async () => {
 			const token = localStorage.getItem('adminToken');
@@ -30,7 +31,7 @@ export default function AdminRoot() {
 					console.log(result);
 				})
 				.catch(err => {
-					window.location.href = '/admin/login';
+					navigate('/admin/login');
 					console.log(err)
 				})
 		}

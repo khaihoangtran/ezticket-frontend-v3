@@ -1,18 +1,19 @@
 import axios from "axios";
 import BusinessSideNav from "../../components/Admin/BusinessSideNav";
 import AdminSideNav from "../../components/Admin/AdminSideNav";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { checkAuth } from "../../utils";
 
 export default function BusinessRoot() {
+	const navigate = useNavigate();
 	useEffect(() => {
 		const checkAuthAsync = async () => {
 			const isAuth = await checkAuth();
 			
 			if(!isAuth) {
 				localStorage.clear();
-				window.location.href = '/login';
+				navigate('/login');
 			}
 		}
 		

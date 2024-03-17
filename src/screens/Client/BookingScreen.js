@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Banner } from '../../components/Client';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import TicketList from '../../components/Client/TicketList';
 import CustomerInfo from '../../components/Client/CustomerInfo';
 import { BiCreditCard, BiLogoPaypal, BiLogoAmazon } from 'react-icons/bi';
@@ -10,6 +10,7 @@ import { HiExclamation } from 'react-icons/hi';
 import { checkAuth } from '../../utils';
 
 export default function BookingScreen() {
+	const navigate = useNavigate();
 	useEffect(() => {
 		const checkAuthAsync = async () => {
 			const isAuth = await checkAuth();
@@ -43,7 +44,7 @@ export default function BookingScreen() {
 
 	useEffect(() => {
 		if (!user) {
-			window.location.href = '/login';
+			navigate('/login');
 		}
 
 		// console.log(user)
@@ -67,7 +68,7 @@ export default function BookingScreen() {
 					console.log(result);
 				})
 				.catch((err) => {
-					window.location.href = '/';
+					navigate('/');
 					console.log(err);
 				});
 		};

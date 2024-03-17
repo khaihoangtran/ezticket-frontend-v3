@@ -70,7 +70,7 @@ export default function CreateEventTab() {
 
                     if (result.success) {
                         setTimeout(() => {
-                            window.location.href = '/business/event';
+                             = '/business/event';
                         }, 2000);
                     }
 

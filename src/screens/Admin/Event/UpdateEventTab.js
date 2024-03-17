@@ -140,7 +140,6 @@ export default function UpdateEventTab({ event_id, setIsEditing }) {
 
 					if (result.success) {
 						setTimeout(() => {
-							// window.location.href = '/business/event';
                             setSuccessMessage('Cập nhật sự kiện thành công')
 						}, 2000);
 					}

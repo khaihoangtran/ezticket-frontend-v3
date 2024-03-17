@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRef, useState } from "react";
 import { Toast } from "flowbite-react";
 import { HiExclamation, HiArrowLeft } from "react-icons/hi";
 
 export default function OTPScreen() {
+	const navigate = useNavigate();
     const [otp, setOTP] = useState(["", "", "", ""]);
 	const inputRef1 = useRef(null);
 	const inputRef2 = useRef(null);
@@ -56,7 +57,7 @@ export default function OTPScreen() {
                         localStorage.removeItem('email');
                         localStorage.setItem('user', JSON.stringify(result.user));
                         localStorage.setItem('accessToken', result.accessToken);
-                        window.location.href = '/';
+                        navigate('/');
                     }
 
                     console.log(result);

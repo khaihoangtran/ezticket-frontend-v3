@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import EditForm from '../../../components/Form/EditForm';
 import { Spinner } from 'flowbite-react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateEventTab() {
     const [user, setUser] = useState(() => {
         const userJson = localStorage.getItem('user');
         return userJson ? JSON.parse(userJson) : null;
     });
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         event_name: '',
@@ -73,7 +76,7 @@ export default function CreateEventTab() {
 
                     if (result.success) {
                         setTimeout(() => {
-                            window.location.href = '/business/events';
+                           navigate('/business/events');
                         }, 2000);
                     }
 

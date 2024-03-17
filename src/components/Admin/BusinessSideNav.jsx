@@ -2,11 +2,11 @@ import { Sidebar, CustomFlowbiteTheme } from 'flowbite-react';
 import { useState } from 'react';
 import { HiArchive, HiInbox, HiLockClosed, HiLogout, HiShare, HiTicket, HiViewBoards } from 'react-icons/hi';
 import { MdDashboard, MdMonitor } from 'react-icons/md';
-import { Link, useHref } from 'react-router-dom';
+import { Link, useHref, useNavigate } from 'react-router-dom';
 
 export default function BusinessSideNav() {
     const href = useHref();
-    
+    const navigate = useNavigate();
     // console.log(navActive)a
     return (
         <Sidebar theme={customTheme}>
@@ -65,7 +65,7 @@ export default function BusinessSideNav() {
                     </Sidebar.Item>
                     <Sidebar.Item onClick={() => {
                         localStorage.clear();
-                        window.location.href = '/login';
+                        navigate('/login');
                     }} href="#" icon={HiLogout}>
                         Đăng xuất
                     </Sidebar.Item>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Dropdown } from 'flowbite-react';
 import { LuChevronDown, LuFolderOpen, LuHelpCircle, LuLogOut, LuSearch, LuTicket, LuUser } from 'react-icons/lu';
 
@@ -10,6 +10,7 @@ export default function Header() {
         let json = localStorage.getItem('user');
         return json ? JSON.parse(localStorage.getItem('user')) : null;
     });
+    const navigate = useNavigate();
 
     return (
         <header
@@ -89,7 +90,7 @@ export default function Header() {
                                         onClick={() => {
                                             localStorage.removeItem('user');
                                             localStorage.removeItem('accessToken');
-                                            window.location.href = '/';
+                                            navigate('/')
                                         }}
                                         className="flex flex-row gap-2 text-sm text-center items-center"
                                     >

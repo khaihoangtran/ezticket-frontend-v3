@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminLoginScreen() {
 	const [formData, setFormData] = useState({
 		username: '',
 		password: '',
 	});
+
+	const navigate = useNavigate();
 
 	const handleLogin = () => {
 		const AdminLogin = async () => {
@@ -24,7 +27,7 @@ export default function AdminLoginScreen() {
 					if (result.success) {
 						console.log(result);
 						localStorage.setItem('adminToken', result.adminToken);
-						window.location.href = '/admin';
+						navigate('/admin')
 					}
 				})
 				.catch((err) => {

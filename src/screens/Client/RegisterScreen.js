@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Toast } from "flowbite-react";
 import { HiExclamation } from "react-icons/hi";
 
 export default function RegisterScreen() {
+	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		email: "",
 		fullname: "",
@@ -31,7 +32,7 @@ export default function RegisterScreen() {
 					const result = response.data;
 
 					if (result.success) {
-						window.location.href = "/login";
+						navigate("/login");
 					}
                    
 					console.log(result);

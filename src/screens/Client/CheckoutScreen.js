@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Banner } from '../../components/Client';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import CustomerInfo from '../../components/Client/CustomerInfo';
 import axios from 'axios';
 import { Toast, Spinner } from 'flowbite-react';
@@ -8,13 +8,14 @@ import { HiExclamation } from 'react-icons/hi';
 import { checkAuth } from '../../utils';
 
 export default function CheckoutScreen() {
+	const navigate = useNavigate();
 	useEffect(() => {
 		const checkAuthAsync = async () => {
 			const isAuth = await checkAuth();
 
 			if (!isAuth) {
 				localStorage.clear();
-				window.location.href = '/login';
+				navigate('/login');
 			}
 		};
 
@@ -35,7 +36,7 @@ export default function CheckoutScreen() {
 
 	useEffect(() => {
 		if (!user) {
-			window.location.href = '/login';
+			navigate('/login');
 		}
 
 		const fetchDataEvent = async () => {
@@ -79,7 +80,7 @@ export default function CheckoutScreen() {
 					console.log(result);
 				})
 				.catch((err) => {
-					window.location.href = '/';
+					navigate('/');
 					console.log(err);
 				});
 		};
@@ -115,7 +116,7 @@ export default function CheckoutScreen() {
 					} else {
 						if (result.is_paid) {
 							alert(result.msg);
-							window.location.href = '/';
+							navigate('/');
 						}
 					}
 
@@ -148,14 +149,14 @@ export default function CheckoutScreen() {
 
 					if (result.success) {
 						alert('Đơn hàng đã hủy');
-						window.location.href = `/event/${event_slug}/booking`;
+						navigate(`/event/${event_slug}/booking`);
 					}
 
 					console.log(result);
 				})
 				.catch((err) => {
 					alert(err.response.data.msg);
-					window.location.href = `/event/${event_slug}/booking`;
+					navigate(`/event/${event_slug}/booking`);
 					console.log(err);
 				});
 		};

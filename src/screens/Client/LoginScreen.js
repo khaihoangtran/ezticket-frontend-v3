@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { Toast } from "flowbite-react";
 import { HiExclamation } from "react-icons/hi";
 
 export default function LoginScreen() {
+	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		email: "",
 	});
@@ -29,7 +30,7 @@ export default function LoginScreen() {
 
 					if (result.success) {
                         localStorage.setItem('email', formData.email)
-						window.location.href = "/confirm_otp";
+						navigate('/confirm_otp');
 					}
 
 					console.log(result);
