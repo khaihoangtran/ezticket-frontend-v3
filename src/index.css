@@ -13,7 +13,7 @@
 
 body {
     font-family: 'Work Sans';
-    
+    background-color: rgb(39 39 42);
 }
 
 body:has(.card[data-color='blue']:hover) {

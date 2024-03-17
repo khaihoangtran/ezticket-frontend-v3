@@ -167,7 +167,7 @@ export default function MyTicketScreen() {
 	};
 
 	return (
-		<section className="w-full min-h-[120dvh] mt-[6.5rem] bg-zinc-800">
+		<section className="w-full min-h-[100dvh] mt-[6.5rem] bg-zinc-800">
 			<div className="w-[80%] bg-zinc-800 h-screen mx-auto">
 				<div className="flex">
 					<div className="block w-[20%] mt-14">
@@ -495,6 +495,8 @@ export default function MyTicketScreen() {
 								)}
 							</div>
 						</div>
+
+						<div className='py-5'></div>
 					</div>
 				</div>
 			</div>
@@ -589,6 +591,7 @@ export default function MyTicketScreen() {
 					</Toast>
 				</div>
 			</>
+			
 		</section>
 	);
 }
