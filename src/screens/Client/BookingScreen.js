@@ -17,7 +17,7 @@ export default function BookingScreen() {
 
 			if (!isAuth) {
 				localStorage.clear();
-				window.location.href = '/login';
+				navigate('/login');
 			}
 		};
 
@@ -98,7 +98,7 @@ export default function BookingScreen() {
 				.request(options)
 				.then((response) => {
 					const result = response.data;
-					window.location.href = `/event/${event_slug}/booking/${result.booking_id}/checkout`;
+					navigate(`/event/${event_slug}/booking/${result.booking_id}/checkout`);
 
 					console.log(result);
 				})
