@@ -167,10 +167,10 @@ export default function MyTicketScreen() {
 	};
 
 	return (
-		<section className="w-full h-screen mt-[6.5rem] bg-zinc-800">
-			<div className="w-[70%] bg-zinc-800 h-screen mx-auto">
+		<section className="w-full min-h-[120dvh] mt-[6.5rem] bg-zinc-800">
+			<div className="w-[80%] bg-zinc-800 h-screen mx-auto">
 				<div className="flex">
-					<div className="block w-[25%] mt-14">
+					<div className="block w-[20%] mt-14">
 						<div className="flex flex-row gap-3 items-center justify-start">
 							<img
 								src="https://static.ticketbox.vn/avatar.png"
@@ -206,7 +206,7 @@ export default function MyTicketScreen() {
 						</ul>
 					</div>
 
-					<div className="w-[75%] pb-8 min-h-[50vh] mt-14 px-4">
+					<div className="w-[80%] pb-8 min-h-[100vh] mt-14 px-4 overflow-auto">
 						<div className="text-2xl font-medium leading-6 pb-4 ">Vé đã mua</div>
 
 						<div className="block w-[100%] h-[1px] bg-gray-200"></div>
@@ -229,7 +229,7 @@ export default function MyTicketScreen() {
 							<div className="flex flex-col items-center justify-center ">
 								{bookings.length !== 0 ? (
 									<>
-										<div className="overflow-x-auto w-full">
+										<div className="w-full">
 											<Table hoverable>
 												<Table.Head>
 													{headcells.map((cell, index) => {
