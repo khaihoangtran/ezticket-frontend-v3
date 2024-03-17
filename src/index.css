@@ -13,6 +13,7 @@
 
 body {
     font-family: 'Work Sans';
+    
 }
 
 body:has(.card[data-color='blue']:hover) {
@@ -60,6 +61,13 @@ input[type='number'] {
 /* .active {
   background-color: var(--main-color) !important;
 } */
+
+.page-header {
+    background-image: url(https://static.tkbcdn.com/site/global/content-v2/img/home-search-bg-00.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
 
 .text-main {
     color: var(--main-color);

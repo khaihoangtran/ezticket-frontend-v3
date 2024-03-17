@@ -9,27 +9,34 @@ const categories = [
     },
     {
         title: 'Concert nhạc',
-        icon: 'https://i.imgur.com/YyXHyXv.png'
+        icon: 'https://i.imgur.com/YyXHyXv.png',
+        link: '/events/nhac-song'
     },
     {
         title: 'Sân khấu nghệ thuật',
-        icon: 'https://i.imgur.com/ljaLmnS.png'
+        icon: 'https://i.imgur.com/ljaLmnS.png',
+        link: '/events/san-khau-nghe-thuat'
     },
     {
         title: 'Khoa học - diễn thuyết',
-        icon: 'https://i.imgur.com/fX2KeYU.png'
+        icon: 'https://i.imgur.com/fX2KeYU.png',
+        link: '/events/khoa-hoc-dien-thuyet'
     },
     {
-        title: 'Tham quan - du lịch',
-        icon: 'https://i.imgur.com/7xTWoNU.png'
+        title: 'Du lịch - khám phá',
+        icon: 'https://i.imgur.com/7xTWoNU.png',
+        link: '/events/du-lich-kham-pha'
     },
     {
         title: 'Thể dục thể thao',
-        icon: 'https://i.imgur.com/Cd7cKEl.png'
+        icon: 'https://i.imgur.com/Cd7cKEl.png',
+        link: '/events/the-duc-the-thao'
     },
     {
-        title: 'Hội thảo - cộng đồng',
-        icon: 'https://i.imgur.com/l60bw3u.png'
+        title: 'Hội nghị - triễn lãm',
+        icon: 'https://i.imgur.com/l60bw3u.png',
+        link: '/events/hoi-nghi-trien-lam'
+
     },
     {
         title: 'Sự kiện tại TP. Hồ Chí Minh',
