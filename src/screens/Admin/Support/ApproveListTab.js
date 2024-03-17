@@ -131,8 +131,7 @@ export default function ApproveListTab({}) {
 												</Table.Cell>
 
 												<Table.Cell>
-													<a
-														href="#"
+													<div
 														className="flex flex-row gap-2 text-xs font-medium text-cyan-600 hover:underline dark:text-cyan-500"
 													>
 														<a target='_blank' href={`${process.env.REACT_APP_API_URL}/${event.license}`}>
@@ -147,7 +146,7 @@ export default function ApproveListTab({}) {
 															}}
 														/>
 														{/* <HiTrash title="Xóa sự kiện" size={20} /> */}
-													</a>
+													</div>
 												</Table.Cell>
 
 												<Table.Cell className="p-4">

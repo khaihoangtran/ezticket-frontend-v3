@@ -299,8 +299,8 @@ export default function MyTicketScreen() {
 																		{booking.status === 'refunded' ? (
 																			<p className="text-main text-xs">Đã hoàn tiền</p>
 																		) : (
-																			<a
-																				href="#"
+																			<div
+																				
 																				className="flex flex-row gap-3 justify-between text-xs font-medium hover:underline text-center"
 																			>
 																				<LuReceipt
@@ -324,7 +324,7 @@ export default function MyTicketScreen() {
 																					className="text-cyan-500"
 																					title="In vé cứng"
 																				/>
-																			</a>
+																			</div>
 																		)}
 																	</Table.Cell>
 																</Table.Row>

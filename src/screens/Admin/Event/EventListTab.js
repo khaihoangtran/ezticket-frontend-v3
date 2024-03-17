@@ -105,8 +105,7 @@ export default function EventListTab({}) {
                                                 </Table.Cell>
 
                                                 <Table.Cell>
-                                                    <a
-                                                        href="#"
+                                                    <div
                                                         className="flex flex-row gap-2 text-xs font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                                                     >
                                                         {event.status !== 'published' ? (
@@ -123,7 +122,7 @@ export default function EventListTab({}) {
                                                             }}
                                                         />
                                                         <HiTrash title="Xóa sự kiện" size={20} />
-                                                    </a>
+                                                    </div>
                                                 </Table.Cell>
                                             </Table.Row>
                                         );

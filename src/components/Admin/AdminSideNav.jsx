@@ -12,7 +12,7 @@ export default function BusinessSideNav() {
     // console.log(navActive)
     return (
         <Sidebar theme={customTheme}>
-            <Sidebar.Logo href="#" img={process.env.REACT_APP_LOGO_URL} imgAlt="EzTicket logo">
+            <Sidebar.Logo img={process.env.REACT_APP_LOGO_URL} imgAlt="EzTicket logo">
                 EzTicket
             </Sidebar.Logo>
             <Sidebar.Items>
@@ -21,7 +21,7 @@ export default function BusinessSideNav() {
                         Trang chủ
                     </Sidebar.Item>
 
-                    <Sidebar.Item className={href === '/admin' && 'bg-main'} href="#" icon={MdDashboard}>
+                    <Sidebar.Item className={href === '/admin' && 'bg-main'} icon={MdDashboard}>
                         <Link
                             className="w-full block"
                             to="/admin"
@@ -30,7 +30,7 @@ export default function BusinessSideNav() {
                         </Link>
                     </Sidebar.Item>
 
-                    <Sidebar.Item className={href === '/admin/events' && 'bg-main'} href="#" icon={MdEvent}>
+                    <Sidebar.Item className={href === '/admin/events' && 'bg-main'} icon={MdEvent}>
                         <Link
                             className="w-full block"
                             to="/admin/events"
@@ -39,16 +39,16 @@ export default function BusinessSideNav() {
                         </Link>
                     </Sidebar.Item>
 
-                    <Sidebar.Item className={href === '/admin/help' && 'bg-main'} href="#" icon={HiInbox}>
+                    <Sidebar.Item className={href === '/admin/help' && 'bg-main'} icon={HiInbox}>
                         <Link
                             className="w-full block"
-                            to="/admin/help"
+                            to=""
                         >
                             Yêu cầu hỗ trợ
                         </Link>
                     </Sidebar.Item>
 
-                    <Sidebar.Item className={href === '/admin/refund' && 'bg-main'} href="#" icon={HiViewBoards}>
+                    <Sidebar.Item className={href === '/admin/refund' && 'bg-main'} icon={HiViewBoards}>
                         <Link
                             className="w-full block"
                             to="/admin/refund"
@@ -57,7 +57,14 @@ export default function BusinessSideNav() {
                         </Link>
                     </Sidebar.Item>
 
-                    {/* <Sidebar.Item className={navActive === 4 && 'bg-main'} href="#" icon={HiTicket}>
+                    <Sidebar.Item className="cursor-pointer" icon={HiLockClosed}>
+                        Chính sách
+                    </Sidebar.Item>
+                    <Sidebar.Item className="cursor-pointer" icon={HiShare}>
+                        Dịch vụ
+                    </Sidebar.Item>
+
+                    {/* <Sidebar.Item className={navActive === 4 && 'bg-main'} icon={HiTicket}>
                         <Link
                             onClick={() => {
                                 setNavActive(4);
@@ -71,7 +78,7 @@ export default function BusinessSideNav() {
                     <Sidebar.Item onClick={() => {
                         localStorage.clear();
                         navigate('/admin/login')
-                    }} href="#" icon={HiLogout}>
+                    }} icon={HiLogout}>
                         Đăng xuất
                     </Sidebar.Item>
                 </Sidebar.ItemGroup>
