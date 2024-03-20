@@ -38,7 +38,7 @@ export default function Header() {
             </div>
             <div className="flex items-center justify-center h-[100%] mr-10 ml-auto">
                 <Link
-                    to="/event/create"
+                    to="/business/events"
                     className="flex items-center justify-center w-32 mx-4 
                     bg-slate-700 text-white text-sm
                     h-9 leading-9 min-w-[90px] 
