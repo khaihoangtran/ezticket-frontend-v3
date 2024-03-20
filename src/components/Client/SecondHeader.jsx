@@ -95,7 +95,7 @@ export default function SecondHeader() {
                                         onClick={() => {
                                             localStorage.removeItem('user');
                                             localStorage.removeItem('accessToken');
-                                            navigate('/');
+                                            navigate('/login');
                                         }}
                                         className="flex flex-row gap-2 text-sm text-center items-center"
                                     >
